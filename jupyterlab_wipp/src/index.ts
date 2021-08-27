@@ -8,6 +8,8 @@ import { requestAPI } from './handler';
 import { NotebookInfoForm } from './notebookInfoBox';
 import { WippRegister } from './wippRegister';
 import { WippSidebar } from './sidebar';
+// import { buildIcon, runIcon } from '@jupyterlab/ui-components';
+import { Menu } from '@lumino/widgets';
 
 export interface INotebookInfo {
   name: string;
@@ -31,6 +33,29 @@ const plugin: JupyterFrontEndPlugin<void> = {
     labShell: ILabShell,
     consoleTracker: IConsoleTracker
   ) => {
+
+    // const { commands } = app;
+
+    // Add a command
+    // const command = 'jlab-examples:main-menu';
+
+    // // changed from commands.addCommand(command, {
+    // const command = 'jlab-examples/context-menu:open';
+    const command = 'jlab-examples:main-menu';
+
+    app.commands.addCommand(command, {
+      label: `Will's first command`,
+      caption: `Execute Will's first command`,
+      execute: (args: any) => {
+        console.log(
+          `Will's command has been called ${args['origin']}.`
+        );
+        window.alert(
+          `Will's command 2 has been called ${args['origin']}.`
+        );
+      },
+    });
+    console.log(`i've modified the wipp plugin but nothing is showing`)
     // Run initial health check on backend handlers and check WIPP API is available
     requestAPI<any>('info')
       .then(response => {
@@ -94,6 +119,25 @@ const plugin: JupyterFrontEndPlugin<void> = {
               command: registerFileMenuCommandID,
             }
           ], 40 /* rank */);
+
+
+          // // // me messing around
+          // mainMenu.fileMenu.addGroup([
+          //   {
+          //     command: command,
+          //   }
+          // ], 50 /* rank */);
+
+          // Create a menu
+          // const tutorialMenu: Menu = new Menu({ commands });
+          const tutorialMenu: Menu = new Menu( app );
+          tutorialMenu.title.label = 'Main Menu Example';
+          mainMenu.addMenu(tutorialMenu, { rank: 80 });
+
+          // Add the command to the menu
+          tutorialMenu.addItem({ command, args: { origin: 'from the menu' } });          
+
+
 
           // Add command to the palette
           palette.addItem({
