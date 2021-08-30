@@ -1,5 +1,5 @@
 {
-  "name": "jupyterlab_plugin_creator",
+  "name": "jupyterlab_wipp_plugin_creator",
   "version": "0.1.0",
   "description": "Create WIPP container for local python code",
   "keywords": [
@@ -7,9 +7,9 @@
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/Kingstonshaw/jupyterlab_plugin_creator",
+  "homepage": "https://github.com/Kingstonshaw/jupyterlab-extensions/",
   "bugs": {
-    "url": "https://github.com/Kingstonshaw/jupyterlab_plugin_creator/issues"
+    "url": "https://github.com/Kingstonshaw/jupyterlab-extensions/issues"
   },
   "license": "BSD-3-Clause",
   "author": {
@@ -25,7 +25,7 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kingstonshaw/jupyterlab_plugin_creator.git"
+    "url": "https://github.com/Kingstonshaw/jupyterlab-extensions.git"
   },
   "scripts": {
     "build": "jlpm run build:lib && jlpm run build:labextension:dev",
