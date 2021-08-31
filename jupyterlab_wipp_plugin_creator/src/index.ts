@@ -7,6 +7,7 @@ import { IConsoleTracker } from '@jupyterlab/console';
 import { IFileBrowserFactory } from '@jupyterlab/filebrowser';
 import { requestAPI } from './handler';
 import { Menu } from '@lumino/widgets';
+import { Creator_Sidebar } from './sidebar';
 // import * as WidgetModuleType from '@jupyterlab/terminal/lib/widget';
 /**
  * Initialization data for the jupyterlab_plugin_creator extension.
@@ -71,7 +72,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
     // });  
     requestAPI<any>('get_example')
       .then(data => {
-        console.log(data);
+        console.log('The plugin creator extension is loaded, response code ', data.code)
+        // console.log(data);
+
   
 })
       .catch(reason => {
@@ -79,6 +82,15 @@ const plugin: JupyterFrontEndPlugin<void> = {
           `The jupyterlab_plugin_creator server extension appears to be missing.\n${reason}`
         );
       });
+    // Create the WIPP sidebar panel
+    const sidebar = new Creator_Sidebar(app, notebookTracker, consoleTracker);
+    sidebar.id = 'wipp-labextension:plugin';
+    sidebar.title.iconClass = 'wipp-WippLogo jp-SideBar-tabIcon';
+    sidebar.title.caption = 'WIPP Plugin Creator';
+
+    // Register sidebar panel with JupyterLab
+    labShell.add(sidebar, 'left', { rank: 200 });
+    console.log('plugin creator sidebar added')
   }
 };
 

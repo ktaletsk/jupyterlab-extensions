@@ -20,7 +20,7 @@ import { TextWidget } from './components/textWidget'
 // import React from 'react';
 
 
-export class creator_sidebar extends Widget {
+export class Creator_Sidebar extends Widget {
     /**
      * Create a new WIPP plugin creator sidebar.
      */
@@ -51,10 +51,13 @@ export class creator_sidebar extends Widget {
         let layout = (this.layout = new PanelLayout());
 
         //Add text field for user to enter
-        layout.addWidget(this._table);
+        // layout.addWidget(this._table);
+
+        /* failed attempts
         // this._text = new TextWidget(()=>this.get_search_placeholder(), (arg0))
         // this._text = new TextWidget(('Name',arg0)=> this._passText(arg0)))
         // this._text = new TextWidget()
+        */
         this._text = new TextWidget(() => this.get_search_placeholder(), (arg0) =>this._passText(arg0))
         layout.addWidget(this._text);
         // // Add search bar widget for search WIPP Collections
@@ -236,7 +239,7 @@ export class creator_sidebar extends Widget {
     // private _search_collection_type_url!: string;
     // private _search: SearchWidget;
     // private _switcher: SwitcherWidget;
-    private _table: ReactWidget;
+    // private _table: ReactWidget;
     // private _imagescollection_url!: string;
     // private _csvcollections_url!: string;
     // private _collection_url_prefix: string = '';
