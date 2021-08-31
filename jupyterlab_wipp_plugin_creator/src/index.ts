@@ -7,6 +7,7 @@ import { IConsoleTracker } from '@jupyterlab/console';
 import { IFileBrowserFactory } from '@jupyterlab/filebrowser';
 import { requestAPI } from './handler';
 import { Menu } from '@lumino/widgets';
+// import * as WidgetModuleType from '@jupyterlab/terminal/lib/widget';
 /**
  * Initialization data for the jupyterlab_plugin_creator extension.
  */
@@ -60,7 +61,14 @@ const plugin: JupyterFrontEndPlugin<void> = {
     mainMenu.addMenu(tutorialMenu, { rank: 80 });
 
     // Add the command to the menu
-    tutorialMenu.addItem({ command, args: { origin: 'from the menu' } });   
+    tutorialMenu.addItem({ command, args: { origin: 'from the menu' } });
+
+    // // somehow this would cause a bunch of errors making it fail to build
+    // app.commands
+    // .execute('terminal:create-new')
+    // .then((terminal: WidgetModuleType.Terminal) => {
+    //   app.shell.add(terminal, 'right');
+    // });  
     requestAPI<any>('get_example')
       .then(data => {
         console.log(data);
