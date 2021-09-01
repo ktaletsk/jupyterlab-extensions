@@ -2,8 +2,7 @@
 
 ![Github Actions Status](https://github.com/Kingstonshaw/jupyterlab_plugin_creator/workflows/Build/badge.svg)
 
-Create WIPP container for local python code
-
+Create wipp plugin by containerizing local code in various languages,  automate the Plugin generation and testing process using both static analysis and templates. 
 
 This extension is composed of a Python package named `jupyterlab_plugin_creator`
 for the server extension and a NPM package named `jupyterlab_plugin_creator`
