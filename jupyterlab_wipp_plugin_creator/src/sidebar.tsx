@@ -58,7 +58,13 @@ export class Creator_Sidebar extends Widget {
         // this._text = new TextWidget(('Name',arg0)=> this._passText(arg0)))
         // this._text = new TextWidget()
         */
+
+
+
+
+
         this._text = new TextWidget(() => this.get_search_placeholder(), (arg0) =>this._passText(arg0))
+
         layout.addWidget(this._text);
         // // Add search bar widget for search WIPP Collections
         // this._search = new SearchWidget(() => this.get_search_placeholder(), (arg0) => this._searchCollections(arg0));

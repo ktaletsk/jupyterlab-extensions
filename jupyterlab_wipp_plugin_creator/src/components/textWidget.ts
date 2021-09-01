@@ -17,7 +17,24 @@ export class TextWidget extends Widget {
         this.addClass('wipp-pluginCreatorSidebar-text-layout');
         const layout = (this.layout = new PanelLayout());
 
-        // Search input bar for imageCollections
+        // //Title for the UI
+        // //not working
+        // const txt = new Widget();
+        // txt.addClass('wipp-pluginCreatorSidebar-texttitles');
+        // this._txt = document.createElement('h1');
+        // this._txt = document.createTextNode("Create New Plugin")
+        // txt.node.appendChild(this._txt);
+        // this._txt = document.createElement('title');
+        // layout.addWidget(txt);       
+
+        let title = document.createElement('h1');
+        title.className = 'wipp-pluginCreatorSidebar-textheaders';
+
+        // not .body .text
+        title.innerText = "Create New Plugin"
+
+
+
         const textField = new Widget();
         textField.addClass('wipp-pluginCreatorSidebar-text');
         this._textField = document.createElement('input');
@@ -25,6 +42,7 @@ export class TextWidget extends Widget {
         this._textField.oninput = async () => {
             updateWidget(this._textField.value);
         }
+        textField.node.appendChild(title);
         textField.node.appendChild(this._textField);
         layout.addWidget(textField);
 
@@ -53,7 +71,7 @@ export class TextWidget extends Widget {
         this._textField.value = "";
         this._textField.placeholder = this._getPlaceholder();
     }
-
+    // private _txt: HTMLTitleElement;
     private _textField: HTMLInputElement;
     private _getPlaceholder: () => string;
 }
