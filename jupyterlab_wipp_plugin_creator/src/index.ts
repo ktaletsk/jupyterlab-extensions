@@ -8,6 +8,10 @@ import { IFileBrowserFactory } from '@jupyterlab/filebrowser';
 import { requestAPI } from './handler';
 import { Menu } from '@lumino/widgets';
 import { Creator_Sidebar } from './sidebar';
+// import { WippRegister } from './wippRegister';
+
+
+
 // import * as WidgetModuleType from '@jupyterlab/terminal/lib/widget';
 /**
  * Initialization data for the jupyterlab_plugin_creator extension.
@@ -71,10 +75,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
     //   app.shell.add(terminal, 'right');
     // });  
     requestAPI<any>('get_example')
-      .then(data => {
-        console.log('The plugin creator extension is loaded, response code ', data.code)
-        // console.log(data);
+      .then(response => {
+        // console.log('The plugin creator extension is loaded, response code ', data.code)
+        console.log(response.xyz);
 
+
+
+        
   
 })
       .catch(reason => {

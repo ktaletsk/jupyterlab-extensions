@@ -53,7 +53,7 @@ export class WippRegister extends Widget{
             method: 'POST',
             body: JSON.stringify(request)
         };
-
+        
         requestAPI<any>('register', fullRequest)
         .then(response => {
             this.handleResponse(response);
