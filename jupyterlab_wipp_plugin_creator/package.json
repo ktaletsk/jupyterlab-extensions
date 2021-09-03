@@ -54,7 +54,6 @@
     "@jupyterlab/notebook": "^3.0.0",
     "@jupyterlab/services": "^6.0.0",
     "@jupyterlab/settingregistry": "^3.0.0",
-    "@jupyterlab/terminal": "^3.3.0-alpha.6",
     "@lumino/datastore": "^0.14.2"
   },
   "devDependencies": {
