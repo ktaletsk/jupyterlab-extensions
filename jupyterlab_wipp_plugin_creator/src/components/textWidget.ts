@@ -28,18 +28,15 @@ export class TextWidget extends Widget {
 
 
         // // add working header for the UI
-        // let title = document.createElement('h1');
-        // title.className = 'wipp-pluginCreatorSidebar-textheaders';
 
-        // // not .body .text
-        // title.innerText = "Create New Plugin"
-
-
+        let title = document.createElement('h1');
+        title.className = 'wipp-pluginCreatorSidebar-title';
+        title.innerText = "Create New Plugin"
 
         const textField = new Widget();
         textField.addClass('wipp-pluginCreatorSidebar-text');
         this._label = document.createElement('label');
-        this._label.textContent= "Create New Plugin"
+        this._label.textContent= "Name:"
         this._textField = document.createElement('input');
         // this._textField.label = ""
         this._textField.placeholder = this._getPlaceholder();
@@ -48,7 +45,9 @@ export class TextWidget extends Widget {
         }
         
         // textField.node.appendChild(title);
-        this._label.appendChild(this._textField)
+
+        title.appendChild(this._label)
+        title.appendChild(this._textField)
         textField.node.appendChild(this._label);
         layout.addWidget(textField);
 
@@ -68,6 +67,11 @@ export class TextWidget extends Widget {
             icon: searchIcon,
             onClick: async () => {
                 updateWidget(this._textField.value);
+                let input = {
+                    name: this._textField.value
+
+                } 
+                return input
             }
         });
         layout.addWidget(searchButton);

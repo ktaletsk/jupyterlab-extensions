@@ -1,4 +1,5 @@
 import json
+import os
 
 from jupyter_server.base.handlers import APIHandler
 from jupyter_server.utils import url_path_join
@@ -57,7 +58,7 @@ def setup_handlers(web_app):
 
 
 class WippRegisterText(WippHandler):
-    @tornado.web.authenticated
+    # @tornado.web.authenticated
     def post(self):
         """
         POST request handler, registers notebook in WIPP
@@ -71,15 +72,39 @@ class WippRegisterText(WippHandler):
         """
 
         #data is python dictionary sent from front end
+        try:
+            data = json.loads(self.request.body.decode("utf-8"))
+        except:
+            print('can\'t decode request')
+        #I notice I am missing response =
+
+        print("Check data:",data)
+        path = r'\\wsl$\Ubuntu\home\kingston\pydev\plugin_creator_test'
+        os.chdir(path)
+        with open("test.txt", "w") as file1:
+            file1.write(data)
+
+## copied here as reference
+class WippRegisterNotebook(WippHandler):
+    @tornado.web.authenticated
+    def post(self):
+        """
+        POST request handler, registers notebook in WIPP
+
+        Input format:
+            {
+              'path': '/home/jovyan/sample.ipynb',
+              'name': 'my-notebook-7',
+              'description': 'Image segmentation notebook'
+            }
+        """
+
         data = json.loads(self.request.body.decode("utf-8"))
-        print(data)
-        # if all(key in data for key in ("path","name","description")):
-        #     try:
-
-                # response = self.wipp.register_notebook(data["path"], data["name"], data["description"])
-        #         self.finish(json.dumps(response))
-        #     except:
-        #         self.write_error(500)
-        # else:
-        #     self.write_error(400)
-
+        if all(key in data for key in ("path","name","description")):
+            try:
+                response = self.wipp.register_notebook(data["path"], data["name"], data["description"])
+                self.finish(json.dumps(response))
+            except:
+                self.write_error(500)
+        else:
+            self.write_error(400)
