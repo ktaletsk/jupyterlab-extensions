@@ -36,6 +36,7 @@ export class TextWidget extends Widget {
         let linebreak2 = document.createElement('br');
         let linebreak3 = document.createElement('br');
         let linebreak4 = document.createElement('br');
+        let linebreak5 = document.createElement('br');
         // H1 Block ///////////////////////////////
         let title = document.createElement('h1');
         title.className = 'wipp-pluginCreatorSidebar-title';
@@ -107,9 +108,72 @@ export class TextWidget extends Widget {
                 })
                 .catch(() => console.log('There is an error making API request.'));
         }
+        // can't use .addclass, that method belongs to lumino widget
+        
+        let collapsebutton = document.createElement('button');
+        collapsebutton.classList.add('collapsible-button');
+        collapsebutton.innerHTML = 'Optional Fields'
+        let collapsediv = document.createElement('div');
+        collapsediv.classList.add('collapsible-content');
 
+        let collapsep = document.createElement('p');
+        
+        // collapsediv.appendChild(collapsep)
+        /**********************************************
+        Collapsed fields
+        ************************************************/
+        let hlabel = document.createElement('label');
+        hlabel.textContent= "Name:";
+        collapsediv.appendChild(hlabel);
+       
 
-        // let helpbutton = document.createElement('button');
+        let htextfield = document.createElement('input');
+        collapsediv.appendChild(htextfield);
+        // this.node.appendChild(collapsediv);
+        collapsediv.appendChild(linebreak5);
+
+        // let label2 = document.createElement('label');
+        // label2.textContent= "Version:";
+        // collapsediv.appendChild(label2);
+        // let textfield2 = document.createElement('input');
+        // collapsediv.appendChild(textfield2);
+        // collapsediv.appendChild(linebreak3);
+        // // this.node.appendChild(collapsediv);
+    
+        // let label3 = document.createElement('label');
+        // label3.textContent= "Title:";
+        // collapsediv.appendChild(label3);
+        // let textfield3 = document.createElement('input');
+        // collapsediv.appendChild(textfield3);
+        // collapsediv.appendChild(linebreak4);
+
+        // let label4 = document.createElement('label');
+        // label4.textContent= "Description:";
+        // collapsediv.appendChild(label4);
+        // let textfield4 = document.createElement('input');
+        // collapsediv.appendChild(textfield4);
+        // collapsediv.appendChild(linebreak);
+
+        /**********************************************
+        Collapsed fields ends
+        ************************************************/
+        collapsebutton.onclick = async () =>
+        {    /* Toggle between adding and removing the "active" class,
+        to highlight the button that controls the panel */
+            collapsediv.classList.toggle("active");
+             /* Toggle between hiding and showing the active panel */
+            // var panel = collapsebutton.nextElementSibling;
+            if (collapsep.style.display === "block") {
+            collapsep.style.display = "none";
+            console.log('collaspse button toggled')
+            } else {
+            collapsep.style.display = "block";
+    }
+        }
+
+        collapsediv.appendChild(collapsep)
+        this.node.appendChild(collapsebutton);
+        this.node.appendChild(collapsediv);
         // helpbutton.className = 'help'
         // helpbutton.
 
@@ -122,7 +186,7 @@ export class TextWidget extends Widget {
         //     }
         // });
 
-        
+
         // this._textField = document.createElement('input');
         // // this._textField.label = ""
         // this._textField.placeholder = this._getPlaceholder();
