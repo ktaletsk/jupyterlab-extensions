@@ -33,6 +33,9 @@ export class TextWidget extends Widget {
 
         // // add working header for the UI
         let linebreak = document.createElement('br');
+        let linebreak2 = document.createElement('br');
+        let linebreak3 = document.createElement('br');
+        let linebreak4 = document.createElement('br');
         // H1 Block ///////////////////////////////
         let title = document.createElement('h1');
         title.className = 'wipp-pluginCreatorSidebar-title';
@@ -49,9 +52,33 @@ export class TextWidget extends Widget {
         label.textContent= "Name:";
         inputname_widget.appendChild(label);
        
+
         let textfield = document.createElement('input');
         inputname_widget.appendChild(textfield);
         // this.node.appendChild(inputname_widget);
+        inputname_widget.appendChild(linebreak2);
+
+        let label2 = document.createElement('label');
+        label2.textContent= "Version:";
+        inputname_widget.appendChild(label2);
+        let textfield2 = document.createElement('input');
+        inputname_widget.appendChild(textfield2);
+        inputname_widget.appendChild(linebreak3);
+        // this.node.appendChild(inputname_widget);
+    
+        let label3 = document.createElement('label');
+        label3.textContent= "Title:";
+        inputname_widget.appendChild(label3);
+        let textfield3 = document.createElement('input');
+        inputname_widget.appendChild(textfield3);
+        inputname_widget.appendChild(linebreak4);
+
+        let label4 = document.createElement('label');
+        label4.textContent= "Description:";
+        inputname_widget.appendChild(label4);
+        let textfield4 = document.createElement('input');
+        inputname_widget.appendChild(textfield4);
+        inputname_widget.appendChild(linebreak);
 
         let button = document.createElement('button');
         button.innerHTML = 'Generate plugin.json'
@@ -61,7 +88,10 @@ export class TextWidget extends Widget {
         button.onclick = async () => 
         {   
             let request = {
-                name: textfield.value
+                name: textfield.value,
+                version:textfield2.value,
+                title:textfield3.value,
+                description:textfield3.value
             } 
             // return input;
             var fullRequest = {
@@ -78,6 +108,21 @@ export class TextWidget extends Widget {
                 .catch(() => console.log('There is an error making API request.'));
         }
 
+
+        // let helpbutton = document.createElement('button');
+        // helpbutton.className = 'help'
+        // helpbutton.
+
+        // const clearButton = new ToolbarButton({
+        //     tooltip: 'CLEAR SEARCH BAR:',
+        //     icon: closeIcon,
+        //     onClick: async () => {
+        //         updateWidget("");
+        //         this._searchBar.value = "";
+        //     }
+        // });
+
+        
         // this._textField = document.createElement('input');
         // // this._textField.label = ""
         // this._textField.placeholder = this._getPlaceholder();

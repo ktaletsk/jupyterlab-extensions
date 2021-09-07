@@ -82,7 +82,7 @@ class WippRegisterText(WippHandler):
         # path = r'\\wsl$\Ubuntu\home\kingston\pydev\plugin_creator_test'
         # os.chdir(path)
         print(os.getcwd())
-        with open("test.txt", "w") as file1:
+        with open("plugin.json", "w") as file1:
             file1.write(json.dumps(data))
 
 ## copied here as reference
