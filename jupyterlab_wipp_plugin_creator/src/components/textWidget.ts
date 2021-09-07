@@ -1,6 +1,6 @@
 
 import { Widget } from '@lumino/widgets';
-
+import { requestAPI } from '../handler';
 
 /**
  * Search widget on top of WIPP Panel.
@@ -60,13 +60,24 @@ export class TextWidget extends Widget {
 
         button.onclick = async () => 
         {   
-            let input = {
-                name: textField.value
+            let request = {
+                name: textfield.value
             } 
-            return input;
+            // return input;
+            var fullRequest = {
+                method: 'POST',
+                body: JSON.stringify(request)
+            };
+            
+            requestAPI<any>('registerText', fullRequest)
+            .then(response => {
+                console.log('Handle json object sent:')
+                console.log(response)
+                // this.handleResponse(response);
+                })
+                .catch(() => console.log('There is an error making API request.'));
         }
 
-        
         // this._textField = document.createElement('input');
         // // this._textField.label = ""
         // this._textField.placeholder = this._getPlaceholder();

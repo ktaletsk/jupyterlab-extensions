@@ -79,10 +79,11 @@ class WippRegisterText(WippHandler):
         #I notice I am missing response =
 
         print("Check data:",data)
-        path = r'\\wsl$\Ubuntu\home\kingston\pydev\plugin_creator_test'
-        os.chdir(path)
+        # path = r'\\wsl$\Ubuntu\home\kingston\pydev\plugin_creator_test'
+        # os.chdir(path)
+        print(os.getcwd())
         with open("test.txt", "w") as file1:
-            file1.write(data)
+            file1.write(json.dumps(data))
 
 ## copied here as reference
 class WippRegisterNotebook(WippHandler):

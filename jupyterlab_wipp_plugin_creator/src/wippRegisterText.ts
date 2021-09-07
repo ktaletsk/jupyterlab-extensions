@@ -1,10 +1,10 @@
-import { Spinner } from '@jupyterlab/apputils';
+// import { Spinner } from '@jupyterlab/apputils';
 import { Widget } from '@lumino/widgets';
 import { requestAPI } from './handler';
 
 export class WippRegisterText extends Widget{
     body: HTMLElement;
-    spinner: Spinner;
+
     // path: string;
     name: string;
     // description: string;
@@ -31,18 +31,15 @@ export class WippRegisterText extends Widget{
         this.body = this.createBody();
         this.node.appendChild(this.body);
 
-        // Add spinner to show while requesting API
-        this.spinner = new Spinner();
-        this.node.appendChild(this.spinner.node);
 
         // Make API request
-        this.registerNotebook();
+        this.registerText();
     }
     
     /**
      * Executes the backend service API to register notebook in WIPP and handles response and errors.
      */
-    private registerNotebook() {
+    private registerText() {
         // Make request to the backend API
         var request = {
             // path: this.path,
@@ -56,40 +53,41 @@ export class WippRegisterText extends Widget{
         
         requestAPI<any>('register', fullRequest)
         .then(response => {
-            this.handleResponse(response);
+            // this.handleResponse(response);
           })
-          .catch(() => this.handleError());
+          .catch(() => 
+          this.handleError());
     }
 
-    private handleResponse(response: any) {
-        // Remove spinner from dialog
-        this.node.removeChild(this.spinner.node);
-        this.spinner.dispose();
+    // private handleResponse(response: any) {
+    //     // // Remove spinner from dialog
+    //     // this.node.removeChild(this.spinner.node);
+    //     // this.spinner.dispose();
 
-        // Throw exception for API error
-        if (response.code !== 200) {
-            this.handleError(response.error);
-        }
-        else {
-            this.handleSuccess();
-        }
+    //     // Throw exception for API error
+    //     if (response.code !== 200) {
+    //         this.handleError(response.error);
+    //     }
+    //     else {
+    //         this.handleSuccess();
+    //     }
 
-        const info = response.info;
+    //     const info = response.info;
 
-        // Open registered notebook in WIPP
-        if (this.openInWipp) {
-            window.open(info.url + info.id, '_blank');
-        }
+    //     // Open registered notebook in WIPP
+    //     if (this.openInWipp) {
+    //         window.open(info.url + info.id, '_blank');
+    //     }
         
-    }
+    // }
 
-    private handleSuccess() {
-        const label = document.createElement('label');
-        const text = document.createElement('span');
-        text.textContent = `Notebook '${this.name}' successfully registered in WIPP`;
-        label.appendChild(text);
-        this.body.appendChild(label);
-    }
+    // private handleSuccess() {
+    //     const label = document.createElement('label');
+    //     const text = document.createElement('span');
+    //     text.textContent = `Notebook '${this.name}' successfully registered in WIPP`;
+    //     label.appendChild(text);
+    //     this.body.appendChild(label);
+    // }
 
     private handleError(
         message: string = 'Unexpected failure. Please check your Jupyter server logs for more details.'

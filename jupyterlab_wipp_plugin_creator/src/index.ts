@@ -103,6 +103,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         );
       });
     
+      // new WippRegisterText()
 
     // new WippRegisterText()
 
