@@ -76,17 +76,17 @@ const plugin: JupyterFrontEndPlugin<void> = {
     //   app.shell.add(terminal, 'right');
     // });  
 
-// example API calls    
-//     requestAPI<any>('get_example')
-//       .then(response => {
-//         // console.log('The plugin creator extension is loaded, response code ', data.code)
-//         console.log(response.xyz);
-// })
-//       .catch(reason => {
-//         console.error(
-//           `The jupyterlab_plugin_creator server extension appears to be missing.\n${reason}`
-//         );
-//       });
+  // example API calls    
+  //     requestAPI<any>('get_example')
+  //       .then(response => {
+  //         // console.log('The plugin creator extension is loaded, response code ', data.code)
+  //         console.log(response.xyz);
+  // })
+  //       .catch(reason => {
+  //         console.error(
+  //           `The jupyterlab_plugin_creator server extension appears to be missing.\n${reason}`
+  //         );
+  //       });
     // Create the WIPP sidebar panel
     const sidebar = new Creator_Sidebar(app, notebookTracker, consoleTracker);
     sidebar.id = 'wipp-labextension:plugin';
@@ -102,7 +102,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
           `register text failed.\n${reason}`
         );
       });
-
+    
 
     // new WippRegisterText()
 

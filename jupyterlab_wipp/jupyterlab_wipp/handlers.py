@@ -131,7 +131,7 @@ def setup_handlers(web_app):
     handlers = [
         ('/wipp/info', InfoCheckHandler),
         ('/wipp/ui_urls', WippUiUrls),
-        ('/wipp/register', WippRegisterNotebook),
+        ('/wipp /register', WippRegisterNotebook),
         ('/wipp/imageCollections', WippImageCollections),
         ('/wipp/imageCollections/search', WippImageCollectionsSearch),
         ('/wipp/csvCollections', WippCsvCollections),
