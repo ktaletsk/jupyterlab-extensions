@@ -107,10 +107,6 @@ export class TextWidget extends Widget {
         this.node.appendChild(title2);   
         this.node.appendChild(linebreak6)
 
-
-
-
-
         let inputdirdiv = document.createElement('div');
 
         let inputlabel = document.createElement('label');
@@ -126,14 +122,16 @@ export class TextWidget extends Widget {
         inputlabel1.textContent= "Description:";
         inputdirdiv.appendChild(inputlabel1);
         let inputtextfield1 = document.createElement('input');
-        inputtextfield1.placeholder = 'input directory'
+        inputtextfield1.placeholder = 'input description'
         inputdirdiv.appendChild(inputtextfield1);
         inputdirdiv.appendChild(linebreak8);
 
+
+        // Create drop down menu for type
         let inputlabel2 = document.createElement('label');
         inputlabel2.textContent= "Type:";
         inputdirdiv.appendChild(inputlabel2);
-        // note type in the createElement('select ') compiles but causes runtime error, String contains an invalid character ""
+        // note type in the createElement('select ') compiles but causes runtime error, String contains an invalid character , will cause the extension failed to load""
         let inputdropdown = document.createElement('select'), opt1 = document.createElement('option'), opt2 = document.createElement('option');
         opt1.value = '1';
         opt2.value = '2';
@@ -144,10 +142,115 @@ export class TextWidget extends Widget {
         inputdirdiv.appendChild(inputdropdown);
         inputdirdiv.appendChild(linebreak9);
 
+        let inputrequired = document.createElement('input');
+        inputrequired.type =  'checkbox';
+        inputrequired.id = 'Required';
+        inputrequired.name = 'Required';
+        let inputrequiredtext = document.createElement('label');
+        inputrequiredtext.htmlFor = 'Required';
+        inputrequiredtext.textContent = 'Required';
+        inputdirdiv.appendChild(inputrequiredtext);
+        inputdirdiv.appendChild(inputrequired);
+
+        let inputshowui = document.createElement('input');
+        inputshowui.type =  'checkbox';
+        inputshowui.id = 'Show in UI';
+        inputshowui.name = 'Show in UI';
+        let inputshowuitext = document.createElement('label');
+        inputshowuitext.htmlFor = 'Show in UI';
+        inputshowuitext.textContent = 'Show in UI';
+        inputdirdiv.appendChild(inputshowuitext);
+        inputdirdiv.appendChild(inputshowui);
+
+
+
+        // Add the inputdirectory div to the layout
         this.node.appendChild(inputdirdiv);
         /**************************************************
          * Input section ends
          *************************************************/
+
+        /*************************************************
+         * Outputs Section
+         **************************************************/
+
+
+
+         let linebreak10 = document.createElement('br');
+         let linebreak11= document.createElement('br');
+         let linebreak12= document.createElement('br');
+         let linebreak13= document.createElement('br');
+ 
+         let title3 = document.createElement('h2');
+         title3.className = 'wipp-pluginCreatorSidebar-title2';
+         title3.innerText = "Output Dir";
+         this.node.appendChild(title3);   
+         this.node.appendChild(linebreak10)
+ 
+         let outputdirdiv = document.createElement('div');
+ 
+         let outputlabel = document.createElement('label');
+         outputlabel.textContent= "Name:";
+         outputdirdiv.appendChild(outputlabel);
+         let outputtextfield = document.createElement('input');
+         outputtextfield.placeholder = 'output directory'
+         outputdirdiv.appendChild(outputtextfield);
+         outputdirdiv.appendChild(linebreak11);
+         // this.node.appendChild(outputname_widget);
+ 
+         let outputlabel1 = document.createElement('label');
+         outputlabel1.textContent= "Description:";
+         outputdirdiv.appendChild(outputlabel1);
+         let outputtextfield1 = document.createElement('input');
+         outputtextfield1.placeholder = 'output description'
+         outputdirdiv.appendChild(outputtextfield1);
+         outputdirdiv.appendChild(linebreak12);
+ 
+ 
+         // Create drop down menu for type
+         let outputlabel2 = document.createElement('label');
+         outputlabel2.textContent= "Type:";
+         outputdirdiv.appendChild(outputlabel2);
+         // note type in the createElement('select ') compiles but causes runtime error, String contains an invalid character , will cause the extension failed to load""
+         let outputdropdown = document.createElement('select'), opt3 = document.createElement('option'), opt4 = document.createElement('option');
+         opt3.value = '1';
+         opt4.value = '2';
+         opt3.textContent = 'ImageCollection';
+         opt4.textContent = 'CsvCollection';
+         outputdropdown.appendChild(opt3);
+         outputdropdown.appendChild(opt4);
+         outputdirdiv.appendChild(outputdropdown);
+         outputdirdiv.appendChild(linebreak13);
+ 
+         let outputrequired = document.createElement('input');
+         outputrequired.type =  'checkbox';
+         outputrequired.id = 'Required';
+         outputrequired.name = 'Required';
+         let outputrequiredtext = document.createElement('label');
+         outputrequiredtext.htmlFor = 'Required';
+         outputrequiredtext.textContent = 'Required';
+         outputdirdiv.appendChild(outputrequiredtext);
+         outputdirdiv.appendChild(outputrequired);
+ 
+         let outputshowui = document.createElement('input');
+         outputshowui.type =  'checkbox';
+         outputshowui.id = 'Show in UI';
+         outputshowui.name = 'Show in UI';
+         let outputshowuitext = document.createElement('label');
+         outputshowuitext.textContent = 'Show in UI';
+         outputshowuitext.htmlFor = 'Show in UI';
+         outputdirdiv.appendChild(outputshowuitext);
+         outputdirdiv.appendChild(outputshowui);
+ 
+ 
+ 
+         // Add the outputdirectory div to the layout
+         this.node.appendChild(outputdirdiv);
+         /**************************************************
+          * Output section ends
+          *************************************************/
+
+
 
 
 
