@@ -18,6 +18,7 @@ export class TextWidget extends Widget {
         let linebreak3 = document.createElement('br');
         let linebreak4 = document.createElement('br');
         let linebreak5 = document.createElement('br');
+
         // H1 Block ///////////////////////////////
         let title = document.createElement('h1');
         title.className = 'wipp-pluginCreatorSidebar-title';
@@ -33,8 +34,6 @@ export class TextWidget extends Widget {
         let label = document.createElement('label');
         label.textContent= "Name:";
         inputname_widget.appendChild(label);
-       
-
         let textfield = document.createElement('input');
         inputname_widget.appendChild(textfield);
         // this.node.appendChild(inputname_widget);
@@ -81,7 +80,7 @@ export class TextWidget extends Widget {
                 body: JSON.stringify(request)
             };
             
-            requestAPI<any>('registerText', fullRequest)
+            requestAPI<any>('createplugin', fullRequest)
             .then(response => {
                 console.log('Handle json object sent:')
                 console.log(response)
@@ -89,9 +88,73 @@ export class TextWidget extends Widget {
                 })
                 .catch(() => console.log('There is an error making API request.'));
         }
-        // can't use .addclass, that method belongs to lumino widget
+
+        /*************************************************
+         * Inputs Section
+         **************************************************/
+
+
+        let linebreak6 = document.createElement('br');
+        let linebreak7 = document.createElement('br');
+        let linebreak8 = document.createElement('br');
+        let linebreak9 = document.createElement('br');
+        // let linebreak10 = document.createElement('br');
+        // let linebreak11= document.createElement('br');
+
+        let title2 = document.createElement('h2');
+        title2.className = 'wipp-pluginCreatorSidebar-title2';
+        title2.innerText = "Input Dir";
+        this.node.appendChild(title2);   
+        this.node.appendChild(linebreak6)
+
+
+
+
+
+        let inputdirdiv = document.createElement('div');
+
+        let inputlabel = document.createElement('label');
+        inputlabel.textContent= "Name:";
+        inputdirdiv.appendChild(inputlabel);
+        let inputtextfield = document.createElement('input');
+        inputtextfield.placeholder = 'input directory'
+        inputdirdiv.appendChild(inputtextfield);
+        inputdirdiv.appendChild(linebreak7);
+        // this.node.appendChild(inputname_widget);
+
+        let inputlabel1 = document.createElement('label');
+        inputlabel1.textContent= "Description:";
+        inputdirdiv.appendChild(inputlabel1);
+        let inputtextfield1 = document.createElement('input');
+        inputtextfield1.placeholder = 'input directory'
+        inputdirdiv.appendChild(inputtextfield1);
+        inputdirdiv.appendChild(linebreak8);
+
+        let inputlabel2 = document.createElement('label');
+        inputlabel2.textContent= "Type:";
+        inputdirdiv.appendChild(inputlabel2);
+        // note type in the createElement('select ') compiles but causes runtime error, String contains an invalid character ""
+        let inputdropdown = document.createElement('select'), opt1 = document.createElement('option'), opt2 = document.createElement('option');
+        opt1.value = '1';
+        opt2.value = '2';
+        opt1.textContent = 'ImageCollection';
+        opt2.textContent = 'CsvCollection';
+        inputdropdown.appendChild(opt1);
+        inputdropdown.appendChild(opt2);
+        inputdirdiv.appendChild(inputdropdown);
+        inputdirdiv.appendChild(linebreak9);
+
+        this.node.appendChild(inputdirdiv);
+        /**************************************************
+         * Input section ends
+         *************************************************/
+
+
+
         
+
         let collapsebutton = document.createElement('button');
+        // can't use .addclass, that method belongs to lumino widget
         collapsebutton.classList.add('collapsible-button');
         collapsebutton.innerHTML = 'Optional Fields'
         let collapsediv = document.createElement('div');

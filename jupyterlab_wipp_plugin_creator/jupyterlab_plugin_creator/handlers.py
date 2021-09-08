@@ -30,7 +30,7 @@ class CreatePlugin(APIHandler):
 
 def setup_handlers(web_app):
     handlers = [
-        ('/jupyterlab-plugin-creator/registerText', CreatePlugin)
+        ('/jupyterlab-plugin-creator/createplugin', CreatePlugin)
     ]
 
     base_url = web_app.settings["base_url"]
