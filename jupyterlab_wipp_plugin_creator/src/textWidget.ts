@@ -1,35 +1,16 @@
 
 import { Widget } from '@lumino/widgets';
-import { requestAPI } from '../handler';
+import { requestAPI } from './handler';
 
 /**
  * Search widget on top of WIPP Panel.
  */
 export class TextWidget extends Widget {
-    constructor(
-        placeholder: () => string,
-        updateWidget: (arg0: string) => void
-    ) {
+    constructor() {
         super();
-        // this._getPlaceholder = placeholder;
 
         // this.addClass('wipp-pluginCreatorSidebar-text-layout');
-        // const layout = (this.layout = new PanelLayout());
-`   `
-
-
-
-
-        // //Title for the UI
-        // //not working
-        // const txt = new Widget();
-        // txt.addClass('wipp-pluginCreatorSidebar-texttitles');
-        // this._txt = document.createElement('h1');
-        // this._txt = document.createTextNode("Create New Plugin")
-        // txt.node.appendChild(this._txt);
-        // this._txt = document.createElement('title');
-        // layout.addWidget(txt);       
-
+        // const layout = (this.layout = new PanelLayout());  
 
         // // add working header for the UI
         let linebreak = document.createElement('br');
@@ -92,7 +73,7 @@ export class TextWidget extends Widget {
                 name: textfield.value,
                 version:textfield2.value,
                 title:textfield3.value,
-                description:textfield3.value
+                description:textfield4.value
             } 
             // return input;
             var fullRequest = {
@@ -174,67 +155,5 @@ export class TextWidget extends Widget {
         collapsediv.appendChild(collapsep)
         this.node.appendChild(collapsebutton);
         this.node.appendChild(collapsediv);
-        // helpbutton.className = 'help'
-        // helpbutton.
-
-        // const clearButton = new ToolbarButton({
-        //     tooltip: 'CLEAR SEARCH BAR:',
-        //     icon: closeIcon,
-        //     onClick: async () => {
-        //         updateWidget("");
-        //         this._searchBar.value = "";
-        //     }
-        // });
-
-
-        // this._textField = document.createElement('input');
-        // // this._textField.label = ""
-        // this._textField.placeholder = this._getPlaceholder();
-        // this._textField.oninput = async () => {
-        //     updateWidget(this._textField.value);
-        // }
-        
-        // // textField.node.appendChild(title);
-
-        // title.appendChild(this._label)
-        // title.appendChild(this._textField)
-        // textField.node.appendChild(this._label);
-        // layout.addWidget(textField);
-
-        // // Clear search bar button
-        // const clearButton = new ToolbarButton({
-        //     tooltip: 'CLEAR Text Field:',
-        //     icon: closeIcon,
-        //     onClick: async () => {
-        //         updateWidget("");
-        //         this._textField.value = "";
-        //     }
-        // });
-        // layout.addWidget(clearButton);
-
-        // // Search button
-        // const searchButton = new ToolbarButton({
-        //     icon: searchIcon,
-        //     onClick: async () => {
-        //         updateWidget(this._textField.value);
-        //         let input = {
-        //             name: this._textField.value
-
-        //         } 
-        //         return input
-        //     }
-        // });
-        // layout.addWidget(searchButton);
     }
-
-//     onUpdateRequest() {
-//         this._textField.value = "";
-//         this._textField.placeholder = this._getPlaceholder();
-//     }
-//     // private _txt: HTMLTitleElement;
-    // private _label: HTMLLabelElement;
-//     private _textField: HTMLInputElement;
-//     private _getPlaceholder: () => string;
-//     // private _someElement: 
-// 
 }
