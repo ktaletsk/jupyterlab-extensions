@@ -17,6 +17,7 @@ export class TextWidget extends Widget {
         let linebreak2 = document.createElement('br');
         let linebreak3 = document.createElement('br');
         let linebreak4 = document.createElement('br');
+        // @ts-expect-error
         let linebreak5 = document.createElement('br');
 
         // H1 Block ///////////////////////////////
@@ -27,67 +28,41 @@ export class TextWidget extends Widget {
         this.node.appendChild(linebreak)
         //////////////////////////////////////////
 
-        let inputname_widget = document.createElement('div');
+        let inputfields_widget = document.createElement('div');
         
         // const textField = new Widget();
         // textField.addClass('wipp-pluginCreatorSidebar-text');
         let label = document.createElement('label');
         label.textContent= "Name:";
-        inputname_widget.appendChild(label);
+        inputfields_widget.appendChild(label);
         let textfield = document.createElement('input');
-        inputname_widget.appendChild(textfield);
+        inputfields_widget.appendChild(textfield);
         // this.node.appendChild(inputname_widget);
-        inputname_widget.appendChild(linebreak2);
+        inputfields_widget.appendChild(linebreak2);
 
         let label2 = document.createElement('label');
         label2.textContent= "Version:";
-        inputname_widget.appendChild(label2);
+        inputfields_widget.appendChild(label2);
         let textfield2 = document.createElement('input');
-        inputname_widget.appendChild(textfield2);
-        inputname_widget.appendChild(linebreak3);
+        inputfields_widget.appendChild(textfield2);
+        inputfields_widget.appendChild(linebreak3);
         // this.node.appendChild(inputname_widget);
     
         let label3 = document.createElement('label');
         label3.textContent= "Title:";
-        inputname_widget.appendChild(label3);
+        inputfields_widget.appendChild(label3);
         let textfield3 = document.createElement('input');
-        inputname_widget.appendChild(textfield3);
-        inputname_widget.appendChild(linebreak4);
+        inputfields_widget.appendChild(textfield3);
+        inputfields_widget.appendChild(linebreak4);
 
         let label4 = document.createElement('label');
         label4.textContent= "Description:";
-        inputname_widget.appendChild(label4);
+        inputfields_widget.appendChild(label4);
         let textfield4 = document.createElement('input');
-        inputname_widget.appendChild(textfield4);
-        inputname_widget.appendChild(linebreak);
+        inputfields_widget.appendChild(textfield4);
+        inputfields_widget.appendChild(linebreak);
+        this.node.appendChild(inputfields_widget);
 
-        let button = document.createElement('button');
-        button.innerHTML = 'Generate plugin.json'
-        inputname_widget.appendChild(button);
-        this.node.appendChild(inputname_widget);
-
-        button.onclick = async () => 
-        {   
-            let request = {
-                name: textfield.value,
-                version:textfield2.value,
-                title:textfield3.value,
-                description:textfield4.value
-            } 
-            // return input;
-            var fullRequest = {
-                method: 'POST',
-                body: JSON.stringify(request)
-            };
-            
-            requestAPI<any>('createplugin', fullRequest)
-            .then(response => {
-                console.log('Handle json object sent:')
-                console.log(response)
-                // this.handleResponse(response);
-                })
-                .catch(() => console.log('There is an error making API request.'));
-        }
 
         /*************************************************
          * Inputs Section
@@ -121,9 +96,9 @@ export class TextWidget extends Widget {
         let inputlabel1 = document.createElement('label');
         inputlabel1.textContent= "Description:";
         inputdirdiv.appendChild(inputlabel1);
-        let inputtextfield1 = document.createElement('input');
-        inputtextfield1.placeholder = 'input description'
-        inputdirdiv.appendChild(inputtextfield1);
+        let inputtextfield2 = document.createElement('input');
+        inputtextfield2.placeholder = 'input description'
+        inputdirdiv.appendChild(inputtextfield2);
         inputdirdiv.appendChild(linebreak8);
 
 
@@ -132,14 +107,14 @@ export class TextWidget extends Widget {
         inputlabel2.textContent= "Type:";
         inputdirdiv.appendChild(inputlabel2);
         // note type in the createElement('select ') compiles but causes runtime error, String contains an invalid character , will cause the extension failed to load""
-        let inputdropdown = document.createElement('select'), opt1 = document.createElement('option'), opt2 = document.createElement('option');
-        opt1.value = '1';
-        opt2.value = '2';
+        let inputtype = document.createElement('select'), opt1 = document.createElement('option'), opt2 = document.createElement('option');
+        opt1.value = 'ImageCollection';
+        opt2.value = 'CsvCollection';
         opt1.textContent = 'ImageCollection';
         opt2.textContent = 'CsvCollection';
-        inputdropdown.appendChild(opt1);
-        inputdropdown.appendChild(opt2);
-        inputdirdiv.appendChild(inputdropdown);
+        inputtype.appendChild(opt1);
+        inputtype.appendChild(opt2);
+        inputdirdiv.appendChild(inputtype);
         inputdirdiv.appendChild(linebreak9);
 
         let inputrequired = document.createElement('input');
@@ -201,9 +176,9 @@ export class TextWidget extends Widget {
          let outputlabel1 = document.createElement('label');
          outputlabel1.textContent= "Description:";
          outputdirdiv.appendChild(outputlabel1);
-         let outputtextfield1 = document.createElement('input');
-         outputtextfield1.placeholder = 'output description'
-         outputdirdiv.appendChild(outputtextfield1);
+         let outputtextfield2 = document.createElement('input');
+         outputtextfield2.placeholder = 'output description'
+         outputdirdiv.appendChild(outputtextfield2);
          outputdirdiv.appendChild(linebreak12);
  
  
@@ -212,14 +187,14 @@ export class TextWidget extends Widget {
          outputlabel2.textContent= "Type:";
          outputdirdiv.appendChild(outputlabel2);
          // note type in the createElement('select ') compiles but causes runtime error, String contains an invalid character , will cause the extension failed to load""
-         let outputdropdown = document.createElement('select'), opt3 = document.createElement('option'), opt4 = document.createElement('option');
+         let outputtype = document.createElement('select'), opt3 = document.createElement('option'), opt4 = document.createElement('option');
          opt3.value = '1';
          opt4.value = '2';
          opt3.textContent = 'ImageCollection';
          opt4.textContent = 'CsvCollection';
-         outputdropdown.appendChild(opt3);
-         outputdropdown.appendChild(opt4);
-         outputdirdiv.appendChild(outputdropdown);
+         outputtype.appendChild(opt3);
+         outputtype.appendChild(opt4);
+         outputdirdiv.appendChild(outputtype);
          outputdirdiv.appendChild(linebreak13);
  
          let outputrequired = document.createElement('input');
@@ -251,35 +226,58 @@ export class TextWidget extends Widget {
           *************************************************/
 
 
-
-
-
-        
-
-        let collapsebutton = document.createElement('button');
-        // can't use .addclass, that method belongs to lumino widget
-        collapsebutton.classList.add('collapsible-button');
-        collapsebutton.innerHTML = 'Optional Fields'
-        let collapsediv = document.createElement('div');
-        collapsediv.classList.add('collapsible-content');
-
-        let collapsep = document.createElement('p');
-        
-        // collapsediv.appendChild(collapsep)
         /**********************************************
         Collapsed fields
         ************************************************/
-        let hlabel = document.createElement('label');
-        hlabel.textContent= "Name:";
-        collapsediv.appendChild(hlabel);
+        // let collapsebutton = document.createElement('button');
+        // // can't use .addclass, that method belongs to lumino widget
+        // collapsebutton.classList.add('collapsible-button');
+        // collapsebutton.innerHTML = 'Optional Fields'
+        // let collapsediv = document.createElement('div');
+        // collapsediv.classList.add('collapsible-content');
+
+        // let collapsep = document.createElement('p');
+        // let hlabel = document.createElement('label');
+        // hlabel.textContent= "Name:";
+        // collapsediv.appendChild(hlabel);
        
 
-        let htextfield = document.createElement('input');
-        collapsediv.appendChild(htextfield);
-        // this.node.appendChild(collapsediv);
-        collapsediv.appendChild(linebreak5);
+        // let htextfield = document.createElement('input');
+        // collapsediv.appendChild(htextfield);
+        // // this.node.appendChild(collapsediv);
+        // collapsediv.appendChild(linebreak5);
 
-        // let label2 = document.createElement('label');
+    //     collapsebutton.onclick = async () =>
+    //     {    /* Toggle between adding and removing the "active" class,
+    //     to highlight the button that controls the panel */
+    //         collapsediv.classList.toggle("active");
+    //          /* Toggle between hiding and showing the active panel */
+    //         // var panel = collapsebutton.nextElementSibling;
+    //         if (collapsep.style.display === "block") {
+    //         collapsep.style.display = "none";
+    //         console.log('collaspse button toggled')
+    //         } else {
+    //         collapsep.style.display = "block";
+    // }
+    //     }
+
+    //     collapsediv.appendChild(collapsep)
+    //     this.node.appendChild(collapsebutton);
+    //     this.node.appendChild(collapsediv);
+    //semi working above but don't function correctly
+
+
+
+
+
+
+
+
+
+
+
+
+       // let label2 = document.createElement('label');
         // label2.textContent= "Version:";
         // collapsediv.appendChild(label2);
         // let textfield2 = document.createElement('input');
@@ -304,22 +302,57 @@ export class TextWidget extends Widget {
         /**********************************************
         Collapsed fields ends
         ************************************************/
-        collapsebutton.onclick = async () =>
-        {    /* Toggle between adding and removing the "active" class,
-        to highlight the button that controls the panel */
-            collapsediv.classList.toggle("active");
-             /* Toggle between hiding and showing the active panel */
-            // var panel = collapsebutton.nextElementSibling;
-            if (collapsep.style.display === "block") {
-            collapsep.style.display = "none";
-            console.log('collaspse button toggled')
-            } else {
-            collapsep.style.display = "block";
-    }
-        }
 
-        collapsediv.appendChild(collapsep)
-        this.node.appendChild(collapsebutton);
-        this.node.appendChild(collapsediv);
+
+
+
+
+        let button = document.createElement('button');
+        button.innerHTML = 'Generate plugin.json'
+        // inputfields_widget.appendChild(button);
+        this.node.appendChild(button);
+        
+
+        button.onclick = async () => 
+        {   
+            let request = {
+                name: textfield.value,
+                version:textfield2.value,
+                title:textfield3.value,
+                description:textfield4.value,
+                
+                
+                inputs:[{
+                name:inputtextfield.value,
+                description:inputtextfield2.value,
+                type:inputtype.value,
+                // options:,
+                required: inputrequired.checked
+                }],
+                outputs:[{
+                    name:outputtextfield.value,
+                    description:outputtextfield2.value,
+                    type:outputtype.value,
+                    // options:,
+                    required: outputrequired.checked
+                    }],
+            
+            } 
+            // return input;
+            var fullRequest = {
+                method: 'POST',
+                body: JSON.stringify(request)
+            };
+            
+            requestAPI<any>('createplugin', fullRequest)
+            .then(response => {
+                console.log('Handle json object sent:')
+                console.log(response)
+                // this.handleResponse(response);
+                })
+                .catch(() => console.log('There is an error making API request.'));
+        }
+     
+
     }
 }
