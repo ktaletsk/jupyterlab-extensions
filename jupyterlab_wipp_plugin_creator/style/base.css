@@ -1,3 +1,10 @@
+.wipp-pluginCreatorSidebar {
+    background: var(--jp-layout-color1);
+    color: var(--jp-ui-font-color1);
+    font-size: var(--jp-ui-font-size1);
+    overflow: auto;
+  }
+
 .wipp-pluginCreatorSidebar-text-layout{
     padding: 8px;
     display: flex;

@@ -16,7 +16,7 @@ export class Creator_Sidebar extends Widget {
     ) {
         super();
 
-        this.addClass('wipp-creator_sidebar');
+        this.addClass('wipp-pluginCreatorSidebar');
 
         // Define Widget layout
         let layout = (this.layout = new PanelLayout());
