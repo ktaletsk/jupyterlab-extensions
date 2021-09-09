@@ -74,6 +74,22 @@ const plugin: JupyterFrontEndPlugin<void> = {
     sidebar.title.iconClass = 'wipp-pluginCreatorLogo jp-SideBar-tabIcon';
     sidebar.title.caption = 'WIPP Plugin Creator';
     labShell.add(sidebar, 'left', { rank: 200 });
+
+    // Create command for context menu
+    const addFileToPluginContextMenuCommandID = 'wipp-plugin-creator-add-context-menu';
+    app.commands.addCommand(addFileToPluginContextMenuCommandID, {
+      label: 'Add to the new WIPP plugin',
+      iconClass: 'jp-MaterialIcon jp-AddIcon',
+      isVisible: () => ['notebook', 'file'].includes(factory.tracker.currentWidget!.selectedItems().next()!.type),
+      execute: () => console.log(factory.tracker.currentWidget!.selectedItems().next()!.path)
+    });
+
+    // Add command to context menu
+    const selectorItem = '.jp-DirListing-item[data-isdir]';
+    app.contextMenu.addItem({
+      command: addFileToPluginContextMenuCommandID,
+      selector: selectorItem
+    })
   }
 };
 
