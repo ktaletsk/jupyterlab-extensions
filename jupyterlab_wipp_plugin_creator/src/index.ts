@@ -71,7 +71,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
     // Create the WIPP sidebar panel
     const sidebar = new Creator_Sidebar(app, notebookTracker, consoleTracker);
     sidebar.id = 'wipp-labextension:plugin';
-    sidebar.title.iconClass = 'wipp-WippLogo jp-SideBar-tabIcon';
+    sidebar.title.iconClass = 'wipp-pluginCreatorLogo jp-SideBar-tabIcon';
     sidebar.title.caption = 'WIPP Plugin Creator';
     labShell.add(sidebar, 'left', { rank: 200 });
   }
