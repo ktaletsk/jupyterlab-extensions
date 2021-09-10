@@ -17,7 +17,7 @@ export class TextWidget extends Widget {
         let linebreak2 = document.createElement('br');
         let linebreak3 = document.createElement('br');
         let linebreak4 = document.createElement('br');
-        // @ts-expect-error
+        //// @ts-expect-error
         let linebreak5 = document.createElement('br');
 
         // H1 Block ///////////////////////////////
@@ -229,41 +229,42 @@ export class TextWidget extends Widget {
         /**********************************************
         Collapsed fields
         ************************************************/
-        // let collapsebutton = document.createElement('button');
-        // // can't use .addclass, that method belongs to lumino widget
-        // collapsebutton.classList.add('collapsible-button');
-        // collapsebutton.innerHTML = 'Optional Fields'
-        // let collapsediv = document.createElement('div');
-        // collapsediv.classList.add('collapsible-content');
+        let collapsebutton = document.createElement('button');
+        // can't use .addclass, that method belongs to lumino widget
+        collapsebutton.classList.add('collapsible-button');
+        collapsebutton.innerHTML = 'Requirements'
+        let collapsediv = document.createElement('div');
+        collapsediv.classList.add('collapsible-content');
 
-        // let collapsep = document.createElement('p');
-        // let hlabel = document.createElement('label');
-        // hlabel.textContent= "Name:";
-        // collapsediv.appendChild(hlabel);
+        // am I missing class for the p?
+        let collapsep = document.createElement('p');
+        let hlabel = document.createElement('label');
+        hlabel.textContent= "Requirement:";
+        collapsediv.appendChild(hlabel);
        
 
-        // let htextfield = document.createElement('input');
-        // collapsediv.appendChild(htextfield);
-        // // this.node.appendChild(collapsediv);
-        // collapsediv.appendChild(linebreak5);
+        let htextfield = document.createElement('input');
+        collapsediv.appendChild(htextfield);
+        // this.node.appendChild(collapsediv);
+        collapsediv.appendChild(linebreak5);
 
-    //     collapsebutton.onclick = async () =>
-    //     {    /* Toggle between adding and removing the "active" class,
-    //     to highlight the button that controls the panel */
-    //         collapsediv.classList.toggle("active");
-    //          /* Toggle between hiding and showing the active panel */
-    //         // var panel = collapsebutton.nextElementSibling;
-    //         if (collapsep.style.display === "block") {
-    //         collapsep.style.display = "none";
-    //         console.log('collaspse button toggled')
-    //         } else {
-    //         collapsep.style.display = "block";
-    // }
-    //     }
+        collapsebutton.onclick = async () =>
+        {    /* Toggle between adding and removing the "active" class,
+        to highlight the button that controls the panel */
+            collapsediv.classList.toggle("active");
+             /* Toggle between hiding and showing the active panel */
+            // var panel = collapsebutton.nextElementSibling;
+            if (collapsep.style.display === "block") {
+            collapsep.style.display = "none";
+            console.log('collaspse button toggled')
+            } else {
+            collapsep.style.display = "block";
+    }
+        }
 
-    //     collapsediv.appendChild(collapsep)
-    //     this.node.appendChild(collapsebutton);
-    //     this.node.appendChild(collapsediv);
+        collapsediv.appendChild(collapsep)
+        this.node.appendChild(collapsebutton);
+        this.node.appendChild(collapsediv);
     //semi working above but don't function correctly
 
 
