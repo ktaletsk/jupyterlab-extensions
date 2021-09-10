@@ -85,11 +85,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
       label: 'Add to the new WIPP plugin',
       iconClass: 'jp-MaterialIcon jp-AddIcon',
       isVisible: () => ['notebook', 'file'].includes(factory.tracker.currentWidget!.selectedItems().next()!.type),
-      execute: () => { filepath = factory.tracker.currentWidget!.selectedItems().next()!.path;
-        console.log(filepath);
-        state.save(filepath, { open: true });}
-    });
-    console.log(`Fetching IStateDB storage${state.fetch(filepath)}`)
+      execute: () =>  {filepath = factory.tracker.currentWidget!.selectedItems().next()!.path;state.save(filepath, { open: true });console.log(`Fetching IStateDB storage${state.fetch(filepath)}`)}
+        // state.save(filepath, { open: true });
+        // console.log(`Fetching IStateDB storage in block${state.fetch(filepath)}`)}
+    })
+    //This would cause the same error and seems to prevent the code below to not work, i.e. no added context menu option
+    // console.log(`Fetching IStateDB storage out of block${state.fetch(filepath)}`)
     // Add command to context menu
     const selectorItem = '.jp-DirListing-item[data-isdir]';
     app.contextMenu.addItem({
