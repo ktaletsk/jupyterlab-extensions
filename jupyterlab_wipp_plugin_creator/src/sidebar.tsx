@@ -24,7 +24,7 @@ export class Creator_Sidebar extends Widget {
         // Add input text widget
         this._text = new TextWidget()        
         layout.addWidget(this._text);
-
+        
     }
 
     private _text: TextWidget;

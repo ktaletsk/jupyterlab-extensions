@@ -352,7 +352,7 @@ export class TextWidget extends Widget {
                 })
                 .catch(() => console.log('There is an error making API request.'));
         }
-     
+        
 
     }
 }
