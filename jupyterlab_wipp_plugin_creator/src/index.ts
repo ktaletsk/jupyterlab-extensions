@@ -53,42 +53,16 @@ const plugin: JupyterFrontEndPlugin<void> = {
     //     command: command,
     //   }
     // ], 50 /* rank */);
+  
     const dbkey = 'wipp-plugin-creator:data'
-    try{
-    state.fetch(dbkey).then(response => {
-      // console.log(response)
-      // console.log(response.toString)
-      // console.log(response.toString.length)
-      //finally found the problem, response.toString returns a function toString() instead of a string... its length is zero
-
-
-      // if (!response)
-      // if(response.toString.length !== 0 )
-
-
-      if ( JSON.stringify(response) !== '')
-      {
-        //doesn't work, response will be a readonlypartialjsonobject
-        // filepaths = response;
-        
-        console.log(`Fetching key from DB: ${response}`);
-        console.log(`the problem with json stringify: ${JSON.stringify(response)}`)
-        // filepaths.push( JSON.stringify(response).replace(/\\"/g, '"'));
-
-        // let responsetext = JSON.stringify(response).replace(/\\"/g, '')
-        // responsetext = responsetext.replace(/[\[\]']+/g,'');
-        filepaths.push( JSON.stringify(response));
-        // doesn't work, won't append anything it seems
-        // filepaths.concat(JSON.stringify(response))t
+  
+    // Initialzie dbkey if not in IStateDB
+    state.list().then(response => {
+      let keys = response.ids as String[];
+      if (keys.indexOf(dbkey) === -1) {
+        state.save(dbkey, filepaths)
       }
-
-      else{console.log('Value is null')}
-  
-  
-  
-  })
-    }
-    catch(err){console.log(err)}
+    })
 
 
     // Create a menu
@@ -124,14 +98,19 @@ const plugin: JupyterFrontEndPlugin<void> = {
       label: 'Add to the new WIPP plugin',
       iconClass: 'jp-MaterialIcon jp-AddIcon',
       isVisible: () => ['notebook', 'file'].includes(factory.tracker.currentWidget!.selectedItems().next()!.type),
-      execute: () =>  {filepath = factory.tracker.currentWidget!.selectedItems().next()!.path;
-        if(!(filepath in filepaths)){filepaths.push(filepath); console.log(`filepath not in filepaths, new filepath: ${filepath}, new filepaths:${filepaths}`)}
-        
-        state.save(dbkey, filepaths); //Promise.all([state.fetch(filepath)], app.restored])//console.log(`Fetching IStateDB storage${state.fetch(filepath)}`)
-    }
-    
-        // state.save(filepath, { open: true });
-        // console.log(`Fetching IStateDB storage in block${state.fetch(filepath)}`)}  
+      execute: () =>  {
+        filepath = factory.tracker.currentWidget!.selectedItems().next()!.path;
+        state.fetch(dbkey).then(response => {
+          filepaths = response as string[];
+          if (filepaths.indexOf(filepath) === -1) {
+            filepaths.push(filepath);
+          }
+          else {
+            console.log(`${filepath} was already added`)
+          }
+          state.save(dbkey, filepaths);
+        })
+      }
     })
     state.list().then(response => {console.log(response)})
     // THis would cause Plugin 'jupyterlab_wipp_plugin_creator:plugin' failed to activate.
