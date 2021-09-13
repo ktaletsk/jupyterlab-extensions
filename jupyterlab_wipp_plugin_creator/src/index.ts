@@ -8,10 +8,12 @@ import { Menu } from '@lumino/widgets';
 import { Creator_Sidebar } from './sidebar';
 import {IStateDB} from '@jupyterlab/statedb'
 
+
+const filepaths: string[] = [];
 const plugin: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab_wipp_plugin_creator:plugin',
   autoStart: true,
-  requires: [ICommandPalette, IMainMenu, INotebookTracker, IFileBrowserFactory, ILabShell, IConsoleTracker],
+  requires: [ICommandPalette, IMainMenu, INotebookTracker, IFileBrowserFactory, ILabShell, IConsoleTracker,IStateDB],
   activate: (
     app: JupyterFrontEnd,
     palette: ICommandPalette,
@@ -85,12 +87,16 @@ const plugin: JupyterFrontEndPlugin<void> = {
       label: 'Add to the new WIPP plugin',
       iconClass: 'jp-MaterialIcon jp-AddIcon',
       isVisible: () => ['notebook', 'file'].includes(factory.tracker.currentWidget!.selectedItems().next()!.type),
-      execute: () =>  {filepath = factory.tracker.currentWidget!.selectedItems().next()!.path;state.save(filepath, { open: true }); //Promise.all([state.fetch(filepath)], app.restored])//console.log(`Fetching IStateDB storage${state.fetch(filepath)}`)
+      execute: () =>  {filepath = factory.tracker.currentWidget!.selectedItems().next()!.path;
+        if(filepath in filepaths){filepaths.push(filepath)}
+        
+        state.save('wipp-plugin-creator:data', filepaths); //Promise.all([state.fetch(filepath)], app.restored])//console.log(`Fetching IStateDB storage${state.fetch(filepath)}`)
     }
+    
         // state.save(filepath, { open: true });
         // console.log(`Fetching IStateDB storage in block${state.fetch(filepath)}`)}  
     })
-
+    state.list().then(response => {console.log(response)})
     // THis would cause Plugin 'jupyterlab_wipp_plugin_creator:plugin' failed to activate.
     //console.log(state.list)
 
