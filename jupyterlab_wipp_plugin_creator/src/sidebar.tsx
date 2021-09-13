@@ -7,7 +7,7 @@ import { SchemaForm } from '@deathbeds/jupyterlab-rjsf';
 // import { JSONObject } from '@lumino/coreutils';
 import { ToolbarButton } from '@jupyterlab/apputils';
 import { runIcon } from '@jupyterlab/ui-components';
-
+import {AddedFileWidget} from './addedFilesWidget'
 
 
 
@@ -19,6 +19,8 @@ export class Creator_Sidebar extends Widget {
     app: JupyterFrontEnd,
     notebookTracker: INotebookTracker,
     consoleTracker: IConsoleTracker,
+    //optional attribute to pass in filenames to avoid creating a second jupyterfrontend shell
+    addedfilenames?: string[]
   ) {
     super();
 
@@ -113,8 +115,14 @@ export class Creator_Sidebar extends Widget {
       outputs: [{}]
     };
 
+
+
+
     const form = new SchemaForm(schema, {formData: formData});
     layout.addWidget(form);
+
+    const addedfilewidget = new AddedFileWidget(addedfilenames)
+    layout.addWidget(addedfilewidget);
 
     const refreshButton = new ToolbarButton({
       icon: runIcon,

@@ -82,12 +82,12 @@ const plugin: JupyterFrontEndPlugin<void> = {
     // });  
 
 
-    // Create the WIPP sidebar panel
-    const sidebar = new Creator_Sidebar(app, notebookTracker, consoleTracker);
-    sidebar.id = 'wipp-labextension:plugin';
-    sidebar.title.iconClass = 'wipp-pluginCreatorLogo jp-SideBar-tabIcon';
-    sidebar.title.caption = 'WIPP Plugin Creator';
-    labShell.add(sidebar, 'left', { rank: 200 });
+    // // Create the WIPP sidebar panel
+    // const sidebar = new Creator_Sidebar(app, notebookTracker, consoleTracker, filepaths);
+    // sidebar.id = 'wipp-labextension:plugin';
+    // sidebar.title.iconClass = 'wipp-pluginCreatorLogo jp-SideBar-tabIcon';
+    // sidebar.title.caption = 'WIPP Plugin Creator';
+    // labShell.add(sidebar, 'left', { rank: 200 });
     
     //this would cause an error, the selectedItems would be undefined.
     //console.log(`testing path: ${factory.tracker.currentWidget!.selectedItems().next()!.path}`)
@@ -116,7 +116,18 @@ const plugin: JupyterFrontEndPlugin<void> = {
     // THis would cause Plugin 'jupyterlab_wipp_plugin_creator:plugin' failed to activate.
     //console.log(state.list)
 
+    // Need to fetch outside of execute on click context menu as well to be able to render the sidebar on start
+    state.fetch(dbkey).then(response => {
+          filepaths = response as string[];
 
+                    // Create the WIPP sidebar panel
+          const sidebar = new Creator_Sidebar(app, notebookTracker, consoleTracker, filepaths);
+          sidebar.id = 'wipp-labextension:plugin';
+          sidebar.title.iconClass = 'wipp-pluginCreatorLogo jp-SideBar-tabIcon';
+          sidebar.title.caption = 'WIPP Plugin Creator';
+          labShell.add(sidebar, 'left', { rank: 200 });
+    })
+    
 
     //This would cause the same error and seems to prevent the code below to not work, i.e. no added context menu option
     // console.log(`Fetching IStateDB storage out of block${state.fetch(filepath)}`)

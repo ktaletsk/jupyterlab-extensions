@@ -1,0 +1,1 @@
+{"name": "newplugin", "version": "1.0", "title": "plugintitle", "description": "plugindescription", "inputs": [{"name": "inputdir", "description": "inputdescription", "type": "ImageCollection", "required": true}], "outputs": [{"name": "outputdir", "description": "outputdescription", "type": "1", "required": false}]}
