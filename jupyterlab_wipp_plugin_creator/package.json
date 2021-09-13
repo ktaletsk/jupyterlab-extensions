@@ -45,6 +45,7 @@
     "watch:labextension": "jupyter labextension watch ."
   },
   "dependencies": {
+    "@deathbeds/jupyterlab-rjsf": "^1.0.2",
     "@jupyterlab/application": "^3.0.0",
     "@jupyterlab/builder": "^3.0.0",
     "@jupyterlab/console": "^3.0.0",
@@ -74,17 +75,17 @@
     "style/index.js"
   ],
   "styleModule": "style/index.js",
-  "jupyterlab": { 
+  "jupyterlab": {
     "discovery": {
-        "server": {
-          "managers": [
-            "pip"
-          ],
-          "base": {
-            "name": "jupyterlab_plugin_creator"
-          }
+      "server": {
+        "managers": [
+          "pip"
+        ],
+        "base": {
+          "name": "jupyterlab_plugin_creator"
         }
-    }, 
+      }
+    },
     "extension": true,
     "outputDir": "jupyterlab_plugin_creator/labextension"
   },
