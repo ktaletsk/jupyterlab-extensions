@@ -7,7 +7,9 @@ import { SchemaForm } from '@deathbeds/jupyterlab-rjsf';
 // import { JSONObject } from '@lumino/coreutils';
 import { ToolbarButton } from '@jupyterlab/apputils';
 import { runIcon } from '@jupyterlab/ui-components';
-import {AddedFileWidget} from './addedFilesWidget'
+import { AddedFileWidget } from './addedFilesWidget'
+import { IStateDB } from '@jupyterlab/statedb'
+// import { requestAPI } from './handler';
 
 
 
@@ -19,8 +21,7 @@ export class Creator_Sidebar extends Widget {
     app: JupyterFrontEnd,
     notebookTracker: INotebookTracker,
     consoleTracker: IConsoleTracker,
-    //optional attribute to pass in filenames to avoid creating a second jupyterfrontend shell
-    addedfilenames?: string[]
+    state: IStateDB
   ) {
     super();
 
@@ -29,33 +30,35 @@ export class Creator_Sidebar extends Widget {
     // Define Widget layout
     let layout = (this.layout = new PanelLayout());
 
-    // // Add input text widget
-    // this._text = new TextWidget()
-    // layout.addWidget(this._text);
+    let title = new Widget();
+    let h1 = document.createElement('h1');
+    h1.innerText = "Create New Plugin";
+    title.node.appendChild(h1);   
+    layout.addWidget(title);
 
     const schema = {
-      title: "Create new plugin",
+      title: "Plugin Info",
       type: "object",
       properties: {
         name: {
-          type: "string", 
-          title: "Name", 
+          type: "string",
+          title: "Name",
           default: ""
         },
         version: {
-          type: "string", 
-          title: "Version", 
+          type: "string",
+          title: "Version",
           default: ""
         },
         requirements: {
-          type: "array", 
+          type: "array",
           items: {
             type: "string"
-          }, 
+          },
           title: "Requirements"
         },
         inputs: {
-          type: "array", 
+          type: "array",
           items: {
             type: "object",
             properties: {
@@ -76,11 +79,11 @@ export class Creator_Sidebar extends Widget {
                 title: "Required"
               }
             }
-          }, 
+          },
           title: "Inputs"
         },
         outputs: {
-          type: "array", 
+          type: "array",
           items: {
             type: "object",
             properties: {
@@ -101,7 +104,7 @@ export class Creator_Sidebar extends Widget {
                 title: "Required"
               }
             }
-          }, 
+          },
           title: "Outputs"
         }
       }
@@ -115,21 +118,42 @@ export class Creator_Sidebar extends Widget {
       outputs: [{}]
     };
 
+    this._addFileWidget = new AddedFileWidget(state)
+    layout.addWidget(this._addFileWidget);
 
-
-
-    const form = new SchemaForm(schema, {formData: formData});
-    layout.addWidget(form);
-
-    const addedfilewidget = new AddedFileWidget(addedfilenames)
-    layout.addWidget(addedfilewidget);
+    this._form = new SchemaForm(schema, { formData: formData });
+    layout.addWidget(this._form);
 
     const refreshButton = new ToolbarButton({
       icon: runIcon,
-      onClick: () => {console.log(form.getValue())}
+      onClick: () => { this.submit() }
     });
     layout.addWidget(refreshButton);
   }
 
-  // private _text: TextWidget;
+  submit() {
+    console.log('Files: ', this._addFileWidget.getValue())
+    console.log('Form: ', this._form.getValue())
+
+    // TODO: create API request here
+    // It should contain both the form data and the added files
+    // let request = {
+      
+    // }
+    // var fullRequest = {
+    //   method: 'POST',
+    //   body: JSON.stringify(request)
+    // };
+
+    // requestAPI<any>('createplugin', fullRequest)
+    //   .then(response => {
+    //     console.log('Handle json object sent:')
+    //     console.log(response)
+    //   })
+    //   .catch(() => console.log('There is an error making API request.'));
+  }
+
+  private _addFileWidget: AddedFileWidget;
+  private _form: SchemaForm;
+
 }
