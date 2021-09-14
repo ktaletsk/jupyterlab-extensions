@@ -20,8 +20,9 @@ class CreatePlugin(APIHandler):
               'description': ''
             }
         """
-
+    
         data = json.loads(self.request.body.decode("utf-8"))
+        print(data)
         try:
             with open("plugin.json", "w") as file:
                 file.write(json.dumps(data))
