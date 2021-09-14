@@ -6,14 +6,17 @@ import { IConsoleTracker } from '@jupyterlab/console';
 import { IFileBrowserFactory } from '@jupyterlab/filebrowser';
 import { Menu } from '@lumino/widgets';
 import { Creator_Sidebar } from './sidebar';
-import {IStateDB} from '@jupyterlab/statedb'
+import { IStateDB } from '@jupyterlab/statedb'
+import { ExtensionConstants } from './extensionConstants';
+
+
 
 
 let filepaths: string[] = [];
 const plugin: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab_wipp_plugin_creator:plugin',
   autoStart: true,
-  requires: [ICommandPalette, IMainMenu, INotebookTracker, IFileBrowserFactory, ILabShell, IConsoleTracker,IStateDB],
+  requires: [ICommandPalette, IMainMenu, INotebookTracker, IFileBrowserFactory, ILabShell, IConsoleTracker, IStateDB],
   activate: (
     app: JupyterFrontEnd,
     palette: ICommandPalette,
@@ -53,14 +56,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
     //     command: command,
     //   }
     // ], 50 /* rank */);
-  
-    const dbkey = 'wipp-plugin-creator:data'
-  
+
+
     // Initialzie dbkey if not in IStateDB
     state.list().then(response => {
       let keys = response.ids as String[];
-      if (keys.indexOf(dbkey) === -1) {
-        state.save(dbkey, filepaths)
+      if (keys.indexOf(ExtensionConstants.dbkey) === -1) {
+        state.save(ExtensionConstants.dbkey, filepaths)
       }
     })
 
@@ -88,7 +90,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
     // sidebar.title.iconClass = 'wipp-pluginCreatorLogo jp-SideBar-tabIcon';
     // sidebar.title.caption = 'WIPP Plugin Creator';
     // labShell.add(sidebar, 'left', { rank: 200 });
-    
+
     //this would cause an error, the selectedItems would be undefined.
     //console.log(`testing path: ${factory.tracker.currentWidget!.selectedItems().next()!.path}`)
     // Create command for context menu
@@ -98,9 +100,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
       label: 'Add to the new WIPP plugin',
       iconClass: 'jp-MaterialIcon jp-AddIcon',
       isVisible: () => ['notebook', 'file'].includes(factory.tracker.currentWidget!.selectedItems().next()!.type),
-      execute: () =>  {
+      execute: () => {
         filepath = factory.tracker.currentWidget!.selectedItems().next()!.path;
-        state.fetch(dbkey).then(response => {
+        state.fetch(ExtensionConstants.dbkey).then(response => {
           filepaths = response as string[];
           if (filepaths.indexOf(filepath) === -1) {
             filepaths.push(filepath);
@@ -108,26 +110,21 @@ const plugin: JupyterFrontEndPlugin<void> = {
           else {
             console.log(`${filepath} was already added`)
           }
-          state.save(dbkey, filepaths);
+          state.save(ExtensionConstants.dbkey, filepaths);
         })
       }
     })
-    state.list().then(response => {console.log(response)})
+    state.list().then(response => { console.log(response) })
     // THis would cause Plugin 'jupyterlab_wipp_plugin_creator:plugin' failed to activate.
     //console.log(state.list)
 
-    // Need to fetch outside of execute on click context menu as well to be able to render the sidebar on start
-    state.fetch(dbkey).then(response => {
-          filepaths = response as string[];
+    // Create the WIPP sidebar panel
+    const sidebar = new Creator_Sidebar(app, notebookTracker, consoleTracker, state);
+    sidebar.id = 'wipp-labextension:plugin';
+    sidebar.title.iconClass = 'wipp-pluginCreatorLogo jp-SideBar-tabIcon';
+    sidebar.title.caption = 'WIPP Plugin Creator';
+    labShell.add(sidebar, 'left', { rank: 200 });
 
-                    // Create the WIPP sidebar panel
-          const sidebar = new Creator_Sidebar(app, notebookTracker, consoleTracker, filepaths);
-          sidebar.id = 'wipp-labextension:plugin';
-          sidebar.title.iconClass = 'wipp-pluginCreatorLogo jp-SideBar-tabIcon';
-          sidebar.title.caption = 'WIPP Plugin Creator';
-          labShell.add(sidebar, 'left', { rank: 200 });
-    })
-    
 
     //This would cause the same error and seems to prevent the code below to not work, i.e. no added context menu option
     // console.log(`Fetching IStateDB storage out of block${state.fetch(filepath)}`)
