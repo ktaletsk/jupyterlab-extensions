@@ -133,51 +133,37 @@ export class Creator_Sidebar extends Widget {
     });
     layout.addWidget(refreshButton);
   }
-  // let filepaths = this._addFileWidget.getValue();
+  //Constructor ends
   submit() {
     console.log('Files: ', this._addFileWidget.getValue())
     console.log('Form: ', this._form.getValue())
-    // TODO: create API request here
-    // It should contain both the form data and the added files
+
+    //Create API request on submit
     let formvalue = this._form.getValue()
-    
     let request = {
       formdata: formvalue.formData,
       addedfilepaths: this._addFileWidget.getValue()
-  };
-    if (formvalue.errors !==null)
-    {
-    console.log(request)
-    console.log(typeof request)
-    // return input;
-    var fullRequest = {
-        method: 'POST',
-        body: JSON.stringify(request)
     };
 
+    if (formvalue.errors !==null)
+    { // console.log(request)
+      // console.log(typeof request)
+      // return input;
+      var fullRequest = {
+          method: 'POST',
+          body: JSON.stringify(request)
+      };
+      requestAPI<any>('createplugin', fullRequest)
+        .then(response => {
+          console.log('Handle json object sent:')
+          console.log(response)
+        })
+        .catch(() => console.log('There is an error making API request.'));
+      }
 
-
-    requestAPI<any>('createplugin', fullRequest)
-      .then(response => {
-        console.log('Handle json object sent:')
-        console.log(response)
-      })
-      .catch(() => console.log('There is an error making API request.'));
+    else {console.log(`schema form data returns with an error`); console.log(formvalue.errors)}
   }
-  else 
-  {console.log(`schema form data returns with an error`); 
-    console.log(formvalue.errors)}
-}
-
-  // ReactDOM.render((
-  //   <Form schema={schema}
-  //         />
-  // ), document.getElementById("app"));
-  
 
   private _addFileWidget: AddedFileWidget;
   private _form: SchemaForm;
-
-
-
 }
