@@ -1,1 +1,1 @@
-{"name": "My Plugin", "version": "0.1.0", "requirements": [""], "inputs": [{}], "outputs": [{}], "filepaths": []}
+{"formdata": {"name": "My Plugin", "version": "0.1.0", "requirements": ["sdfdsf"], "inputs": [{"name": "sdfsdf", "description": "sdfsdf", "inputType": "collection"}], "outputs": [{"name": "fsd", "description": "sdf"}], "filepaths": []}, "addedfilepaths": ["[\"[\\\"[\\\\\\\"TestDB.ipynb\\\\\\\"]\\\",\\\"Untitled.ipynb\\\"]\",\"setup.py\"]", "tsconfig.json", "plugin.json", "package.json", "install.json", "pyproject.toml"]}
