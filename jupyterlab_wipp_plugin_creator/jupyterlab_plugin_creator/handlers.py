@@ -68,9 +68,10 @@ class CreatePlugin(APIHandler):
                     f2.write(f'{req}\n')
             with open("Dockerfile", "w") as f3:
                 #writelines only accept a sequence, str[]
+                #\\\n\ first two \\ are single \ in docker file, \n new line and then \for the python inline line continuation, this however causes the tab to be registered 
                 f3.writelines([f"FROM python:3.8-alpine","\n","COPY VERSION /\n","\n","ARG EXEC_DIR=\"/opt/executables\"\n","ARG DATA_DIR=\"/data\"\n","RUN mkdir -p ${EXEC_DIR} \\\n\
-                    && mkdir -p ${DATA_DIR}/inputs \\\n\
-                    && mkdir ${DATA_DIR}/outputs\n\n","RUN pip install -r requirements.txt\n\n","COPY src ${EXEC_DIR}/\n","WORKDIR ${EXEC_DIR}\n\n","ENTRYPOINT \[\"python3\", \"main.py\"\]"])
+    && mkdir -p ${DATA_DIR}/inputs \\\n\
+    && mkdir ${DATA_DIR}/outputs\n\n","RUN pip install -r requirements.txt\n\n","COPY src ${EXEC_DIR}/\n","WORKDIR ${EXEC_DIR}\n\n","ENTRYPOINT \[\"python3\", \"main.py\"\]"])
 
         except Exception as e:
             print('Error writing files: ',e)
