@@ -113,7 +113,7 @@ export class Creator_Sidebar extends Widget {
     //needed to readjust position of getvalue
     this._addFileWidget = new AddedFileWidget(state)
     layout.addWidget(this._addFileWidget);
-    let filepaths= this._addFileWidget.getValue()
+    // let filepaths= this._addFileWidget.getValue()
     const formData: any = {
       name: "My Plugin",
       version: "0.1.0",
@@ -121,10 +121,8 @@ export class Creator_Sidebar extends Widget {
       inputs: [{}],
       outputs: [{}],
       //manually added filepaths to the formData
-      filepaths: filepaths
+      // filepaths: filepaths
     };
-    this._formdata = formData
-
 
     this._form = new SchemaForm(schema, { formData: formData });
     layout.addWidget(this._form);
@@ -141,10 +139,17 @@ export class Creator_Sidebar extends Widget {
     console.log('Form: ', this._form.getValue())
     // TODO: create API request here
     // It should contain both the form data and the added files
-    let request = this._formdata;
+    let formvalue = this._form.getValue()
+    
+    let request = {
+      formdata: formvalue.formData,
+      addedfilepaths: this._addFileWidget.getValue()
+  };
+    if (formvalue.errors !==null)
+    {
     console.log(request)
     console.log(typeof request)
-  // return input;
+    // return input;
     var fullRequest = {
         method: 'POST',
         body: JSON.stringify(request)
@@ -159,6 +164,11 @@ export class Creator_Sidebar extends Widget {
       })
       .catch(() => console.log('There is an error making API request.'));
   }
+  else 
+  {console.log(`schema form data returns with an error`); 
+    console.log(formvalue.errors)}
+}
+
   // ReactDOM.render((
   //   <Form schema={schema}
   //         />
@@ -168,8 +178,6 @@ export class Creator_Sidebar extends Widget {
   private _addFileWidget: AddedFileWidget;
   private _form: SchemaForm;
 
-  //created because need to access formdata inside submit function
-  private _formdata: JSON;
-  // private _formdata: JSONObject;
+
 
 }
