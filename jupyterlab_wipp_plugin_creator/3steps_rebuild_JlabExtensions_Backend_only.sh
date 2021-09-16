@@ -1,5 +1,7 @@
 #!/bin/sh
 # Author : Will Xiao
+# Time saver for dev/debug
+# Have no problem within conda environment for me
 # Script follows here:
 
 pip install -e .
