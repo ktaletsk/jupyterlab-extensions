@@ -11,8 +11,6 @@ import { AddedFileWidget } from './addedFilesWidget'
 import { IStateDB } from '@jupyterlab/statedb'
 import { requestAPI } from './handler';
 
-
-
 export class Creator_Sidebar extends Widget {
   /**
    * Create a new WIPP plugin creator sidebar.
@@ -24,9 +22,7 @@ export class Creator_Sidebar extends Widget {
     state: IStateDB
   ) {
     super();
-
     this.addClass('wipp-pluginCreatorSidebar');
-
     // Define Widget layout
     let layout = (this.layout = new PanelLayout());
 
@@ -110,18 +106,15 @@ export class Creator_Sidebar extends Widget {
       }
     };
 
-    //needed to readjust position of getvalue
     this._addFileWidget = new AddedFileWidget(state)
     layout.addWidget(this._addFileWidget);
-    // let filepaths= this._addFileWidget.getValue()
+
     const formData: any = {
       name: "My Plugin",
       version: "0.1.0",
       requirements: [''],
       inputs: [{}],
       outputs: [{}],
-      //manually added filepaths to the formData
-      // filepaths: filepaths
     };
 
     this._form = new SchemaForm(schema, { formData: formData });
@@ -133,7 +126,8 @@ export class Creator_Sidebar extends Widget {
     });
     layout.addWidget(refreshButton);
   }
-  //Constructor ends
+
+  //Sidebar constructor ends
   submit() {
     console.log('Files: ', this._addFileWidget.getValue())
     console.log('Form: ', this._form.getValue())
@@ -145,9 +139,8 @@ export class Creator_Sidebar extends Widget {
       addedfilepaths: this._addFileWidget.getValue()
     };
 
-    if (formvalue.errors !== null) { // console.log(request)
-      // console.log(typeof request)
-      // return input;
+    if (formvalue.errors !== null) {
+
       var fullRequest = {
         method: 'POST',
         body: JSON.stringify(request)
@@ -157,14 +150,10 @@ export class Creator_Sidebar extends Widget {
           console.log('Handle json object sent:')
           console.log(response)
         })
-        .catch(() => console.log('There is an error making API request.'));
+        .catch(() => console.log('There is an error making POST CreatePlugin API request.'));
     }
 
-    else { console.log(`schema form data returns with an error`); console.log(formvalue.errors) }
-
-
-    // my experiment to create register API call 
-
+    else { console.log(`Schema form data returns with an error`); console.log(formvalue.errors) }
 
   }
 

@@ -3,10 +3,11 @@ import os
 import subprocess
 import random
 import string
-import inspect
+
 from jupyter_server.base.handlers import APIHandler
 from jupyter_server.utils import url_path_join
 import tornado
+
 
 class WippHandler(APIHandler):
     @property
@@ -42,52 +43,43 @@ class CreatePlugin(WippHandler):
         """
 
         pwd = os.getcwd()
-        # not cryptographically secure
+        # Not Cryptographically secure
         randomname = "".join(
             random.choices(string.ascii_uppercase + string.digits, k=10)
         )
         tempenv = os.getenv("PLUGIN_TEMP_LOCATION")
-        #if ENV exists, tempenv= None otherwise
+        # if ENV exists
         if tempenv:
             os.chdir(tempenv)
             print(f"New directory {randomname} is created!")
         else:
-            # if path doesn'texists 
+            # if path doesn'texists
             if not os.path.isdir("temp"):
                 print(f" creating ./temp in {os.getcwd()}... ")
                 os.makedirs("temp")
             os.chdir("temp")
             print(
-                f"Env variable PLUGIN_TEMP_LOCATION not found, new directory temp/{randomname} is created!"
+                f"Env variable PLUGIN_TEMP_LOCATION not found, creating new directory temp/{randomname}!"
             )
         os.makedirs(f"{randomname}")
         os.chdir(f"{randomname}")
-        # path = f'/home/kingston/pydev/jupyterlab-extensions/jupyterlab_wipp_plugin_creator/{randomname}'
         randomfolderpath = os.getcwd()
-        # print('Creating build file, requirements.txt and plugin.json')
-        # Generate files to temp folder
+        print("Random folder name created: ", randomfolderpath)
 
+        # Read POST request
         data = json.loads(self.request.body.decode("utf-8"))
         form = data["formdata"]
         filepaths = data["addedfilepaths"]
         requirements = form["requirements"]
-        # Separate requirements key in the formdata form rest. Write plugin.json and requirements.txt separately
+
+        # Separate requirements key in the formdata form rest to write plugin.json and requirements.txt separately
         form.pop("requirements")
         form["containerId"] = "polusai/generated-plugins:" + randomname
-        # register the plugin manifest on wipp
+
+        # register plugin manifest to wipp CI
         self.wipp.register_plugin(form)
-        # print("testing method in handlers py ")
-        # function has no attribute __file__
-        # print("Source location for wipp is :", self.wipp.get_image_collections.__file__)
 
-        #TypeError: module, class, method, function, traceback, frame, or code object was expected, got Wipp
-        # print(inspect.getsource(self.wipp))
-
-        print("function source ",inspect.getsourcefile(self.wipp.get_image_collections))
-        # print(dir(self.wipp))
-        # print(" testing method",self.wipp.get_plugins_collections())
-
-        # print(self.wipp.get_image_collections())
+        # Generate files to temp folder
         try:
             with open("plugin.json", "w") as f1:
                 f1.write(json.dumps(form))
@@ -96,7 +88,8 @@ class CreatePlugin(WippHandler):
                     f2.write(f"{req}\n")
             with open("Dockerfile", "w") as f3:
                 # writelines only accept a sequence, str[]
-                # \\\n\ first two \\ are single \ in docker file, \n new line and then \for the python inline line continuation, this however causes the tab to be registered so I have to unindent the following and hence the ugly look
+                # \\\n\ first two \\ are escape plus single \ needed in docker file, \n new line and then 4th backslash
+                # for the python inline line continuation, hence the ugly indent is necessary for correctly formatting dockerfile
                 f3.writelines(
                     [
                         f"FROM python",
@@ -123,16 +116,13 @@ class CreatePlugin(WippHandler):
         # format cp Src_file1 Src_file2 Src_file3 Dest_directory
         try:
             if filepaths:
-                # change from root/temp to root folder otherwise './temp' is not a directory because the cwd is in temp
-                # os.chdir('..')
                 os.chdir(pwd)
                 cmds = ["cp"]
                 for filepath in filepaths:
                     cmds.append(filepath)
-                # cmds.append(f'./{randomname}')
                 cmds.append(randomfolderpath)
                 print(cmds)
-                # Run the `cp file1 file2 file3 ./temp` command
+                # Run the `cp file1 file2 file3 ./tempfolder` command
                 copyfilescmd = subprocess.run(cmds)
                 print("copy command return code: ", copyfilescmd.returncode)
         except Exception as e:

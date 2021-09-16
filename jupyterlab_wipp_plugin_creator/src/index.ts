@@ -4,7 +4,7 @@ import { IMainMenu } from '@jupyterlab/mainmenu'
 import { INotebookTracker } from '@jupyterlab/notebook'
 import { IConsoleTracker } from '@jupyterlab/console';
 import { IFileBrowserFactory } from '@jupyterlab/filebrowser';
-import { Menu } from '@lumino/widgets';
+// import { Menu } from '@lumino/widgets';
 import { Creator_Sidebar } from './sidebar';
 import { IStateDB } from '@jupyterlab/statedb'
 import { ExtensionConstants } from './extensionConstants';
@@ -19,7 +19,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
   requires: [ICommandPalette, IMainMenu, INotebookTracker, IFileBrowserFactory, ILabShell, IConsoleTracker, IStateDB],
   activate: (
     app: JupyterFrontEnd,
-    palette: ICommandPalette,
     mainMenu: IMainMenu,
     notebookTracker: INotebookTracker,
     factory: IFileBrowserFactory,
@@ -28,35 +27,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
     state: IStateDB
   ) => {
     console.log('JupyterLab extension jupyterlab_plugin_creator is activated!');
-    // const { commands } = app;
-
-    // Add a command
-    // const command = 'jlab-examples:main-menu';
-
-    // // changed from commands.addCommand(command, {
-    // const command = 'jlab-examples/context-menu:open';
-    const command = 'jlab-examples:main-menu';
-
-    app.commands.addCommand(command, {
-      label: `Will's first command`,
-      caption: `Execute Will's first command`,
-      execute: (args: any) => {
-        console.log(
-          `Will's command has been called ${args['origin']}.`
-        );
-        window.alert(
-          `Will's command 2 has been called ${args['origin']}.`
-        );
-      },
-    });
-    console.log(`i've modified the wipp plugin but nothing is showing`)
-    // // // me messing around
-    // mainMenu.fileMenu.addGroup([
-    //   {
-    //     command: command,
-    //   }
-    // ], 50 /* rank */);
-
 
     // Initialzie dbkey if not in IStateDB
     state.list().then(response => {
@@ -66,34 +36,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       }
     })
 
-
-    // Create a menu
-    // const tutorialMenu: Menu = new Menu({ commands });
-    const tutorialMenu: Menu = new Menu(app);
-    tutorialMenu.title.label = 'Main Menu Example';
-    mainMenu.addMenu(tutorialMenu, { rank: 80 });
-
-    // Add the command to the menu
-    tutorialMenu.addItem({ command, args: { origin: 'from the menu' } });
-
-    // // somehow this would cause a bunch of errors making it fail to build
-    // app.commands
-    // .execute('terminal:create-new')
-    // .then((terminal: WidgetModuleType.Terminal) => {
-    //   app.shell.add(terminal, 'right');
-    // });  
-
-
-    // // Create the WIPP sidebar panel
-    // const sidebar = new Creator_Sidebar(app, notebookTracker, consoleTracker, filepaths);
-    // sidebar.id = 'wipp-labextension:plugin';
-    // sidebar.title.iconClass = 'wipp-pluginCreatorLogo jp-SideBar-tabIcon';
-    // sidebar.title.caption = 'WIPP Plugin Creator';
-    // labShell.add(sidebar, 'left', { rank: 200 });
-
-    //this would cause an error, the selectedItems would be undefined.
-    //console.log(`testing path: ${factory.tracker.currentWidget!.selectedItems().next()!.path}`)
-    // Create command for context menu
+    // Add context menu command, right click file browser to register mark files to be converted to plugin
     var filepath = ''
     const addFileToPluginContextMenuCommandID = 'wipp-plugin-creator-add-context-menu';
     app.commands.addCommand(addFileToPluginContextMenuCommandID, {
@@ -115,8 +58,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
       }
     })
     state.list().then(response => { console.log(response) })
-    // THis would cause Plugin 'jupyterlab_wipp_plugin_creator:plugin' failed to activate.
-    //console.log(state.list)
 
     // Create the WIPP sidebar panel
     const sidebar = new Creator_Sidebar(app, notebookTracker, consoleTracker, state);
@@ -126,8 +67,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
     labShell.add(sidebar, 'left', { rank: 200 });
 
 
-    //This would cause the same error and seems to prevent the code below to not work, i.e. no added context menu option
-    // console.log(`Fetching IStateDB storage out of block${state.fetch(filepath)}`)
     // Add command to context menu
     const selectorItem = '.jp-DirListing-item[data-isdir]';
     app.contextMenu.addItem({
