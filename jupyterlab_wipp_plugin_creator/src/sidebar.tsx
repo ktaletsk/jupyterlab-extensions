@@ -2,9 +2,7 @@ import { JupyterFrontEnd } from '@jupyterlab/application';
 import { INotebookTracker } from '@jupyterlab/notebook'
 import { IConsoleTracker } from '@jupyterlab/console';
 import { Widget, PanelLayout } from '@lumino/widgets';
-// import { TextWidget } from './textWidget'
 import { SchemaForm } from '@deathbeds/jupyterlab-rjsf';
-// import { JSONObject, JSONValue } from '@lumino/coreutils';
 import { ToolbarButton } from '@jupyterlab/apputils';
 import { runIcon } from '@jupyterlab/ui-components';
 import { AddedFileWidget } from './addedFilesWidget'
