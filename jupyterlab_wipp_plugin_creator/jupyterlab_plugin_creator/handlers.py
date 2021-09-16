@@ -3,7 +3,7 @@ import os
 import subprocess
 import random
 import string
-
+import inspect
 from jupyter_server.base.handlers import APIHandler
 from jupyter_server.utils import url_path_join
 import tornado
@@ -11,7 +11,7 @@ import tornado
 class WippHandler(APIHandler):
     @property
     def wipp(self):
-        return self.settings["wipp"]
+        return self.settings["wipp-plugin-creator"]
 
 
 # Create wipp plugin based on user input
@@ -76,7 +76,18 @@ class CreatePlugin(WippHandler):
         form["containerId"] = "polusai/generated-plugins:" + randomname
         # register the plugin manifest on wipp
         self.wipp.register_plugin(form)
-        print(self.wipp.get_plugins_collections())
+        # print("testing method in handlers py ")
+        # function has no attribute __file__
+        # print("Source location for wipp is :", self.wipp.get_image_collections.__file__)
+
+        #TypeError: module, class, method, function, traceback, frame, or code object was expected, got Wipp
+        # print(inspect.getsource(self.wipp))
+
+        print("function source ",inspect.getsourcefile(self.wipp.get_image_collections))
+        # print(dir(self.wipp))
+        # print(" testing method",self.wipp.get_plugins_collections())
+
+        # print(self.wipp.get_image_collections())
         try:
             with open("plugin.json", "w") as f1:
                 f1.write(json.dumps(form))
