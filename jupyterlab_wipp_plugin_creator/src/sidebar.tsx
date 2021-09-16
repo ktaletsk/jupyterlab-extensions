@@ -33,7 +33,7 @@ export class Creator_Sidebar extends Widget {
     let title = new Widget();
     let h1 = document.createElement('h1');
     h1.innerText = "Create New Plugin";
-    title.node.appendChild(h1);   
+    title.node.appendChild(h1);
     layout.addWidget(title);
 
     const schema = {
@@ -145,13 +145,12 @@ export class Creator_Sidebar extends Widget {
       addedfilepaths: this._addFileWidget.getValue()
     };
 
-    if (formvalue.errors !==null)
-    { // console.log(request)
+    if (formvalue.errors !== null) { // console.log(request)
       // console.log(typeof request)
       // return input;
       var fullRequest = {
-          method: 'POST',
-          body: JSON.stringify(request)
+        method: 'POST',
+        body: JSON.stringify(request)
       };
       requestAPI<any>('createplugin', fullRequest)
         .then(response => {
@@ -159,9 +158,14 @@ export class Creator_Sidebar extends Widget {
           console.log(response)
         })
         .catch(() => console.log('There is an error making API request.'));
-      }
+    }
 
-    else {console.log(`schema form data returns with an error`); console.log(formvalue.errors)}
+    else { console.log(`schema form data returns with an error`); console.log(formvalue.errors) }
+
+
+    // my experiment to create register API call 
+
+
   }
 
   private _addFileWidget: AddedFileWidget;

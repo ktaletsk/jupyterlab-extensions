@@ -1,0 +1,1 @@
+{"name": "My Plugin", "version": "0.1.0", "inputs": [{"name": "abc", "inputType": "pyramid", "required": true}], "outputs": [{"name": "def", "required": true, "inputType": "csvCollection"}]}
