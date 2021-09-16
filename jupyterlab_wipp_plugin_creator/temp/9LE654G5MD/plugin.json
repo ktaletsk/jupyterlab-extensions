@@ -1,0 +1,1 @@
+{"name": "My Plugin", "version": "0.1.0", "inputs": [{"name": "inputdir"}], "outputs": [{"name": "outputdir"}]}
