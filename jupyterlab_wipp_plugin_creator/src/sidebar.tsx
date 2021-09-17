@@ -1,6 +1,6 @@
 import { JupyterFrontEnd } from '@jupyterlab/application';
-import { INotebookTracker } from '@jupyterlab/notebook'
-import { IConsoleTracker } from '@jupyterlab/console';
+// import { INotebookTracker } from '@jupyterlab/notebook'
+// import { IConsoleTracker } from '@jupyterlab/console';
 import { Widget, PanelLayout } from '@lumino/widgets';
 import { SchemaForm } from '@deathbeds/jupyterlab-rjsf';
 import { ToolbarButton } from '@jupyterlab/apputils';
@@ -15,8 +15,8 @@ export class Creator_Sidebar extends Widget {
    */
   constructor(
     app: JupyterFrontEnd,
-    notebookTracker: INotebookTracker,
-    consoleTracker: IConsoleTracker,
+    // notebookTracker: INotebookTracker,
+    // consoleTracker: IConsoleTracker,
     state: IStateDB
   ) {
     super();
