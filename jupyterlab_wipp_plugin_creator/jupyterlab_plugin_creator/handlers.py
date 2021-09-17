@@ -53,7 +53,7 @@ class CreatePlugin(WippHandler):
             os.chdir(tempenv)
             print(f"New directory {randomname} is created!")
         else:
-            # if path doesn'texists
+            # if path doesn't exist
             if not os.path.isdir("temp"):
                 print(f" creating ./temp in {os.getcwd()}... ")
                 os.makedirs("temp")
